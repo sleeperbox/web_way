@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import axios from "axios";
 
 
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -31,24 +32,26 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  tabRoot: {
+    minWidth: '50%',
+  },
 });
 
 class NavTabs extends React.Component {
-
+    
   constructor(props) {
     super(props);
     this.state = {
-        value: 0,
-        email: "",
-        username: "",
-        first_name: "",
-        last_name: "",
-        password: "",
+      value: 0,
+      email: "",
+      username: "",
+      first_name: "",
+      last_name: "",
+      password: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
 
   handleChange(event) {
     let target = event.target;
@@ -95,17 +98,20 @@ class NavTabs extends React.Component {
     }
     const { classes } = this.props;
     const { value } = this.state;
+
     return (
       <form className={classes.container} noValidate autoComplete="off">
-        <Button variant="contained" className={classes.button} style={btnColor}>
+      
+      <Button variant="contained" className={classes.button} style={btnColor}>
                   Log in with google
                  
               </Button>
               <br />
               <br />
+
         <div className={classes.root}>
           <AppBar position="static" color="default">
-          <Tabs 
+            <Tabs 
               variant="fullWidth" 
               value={value} 
               onChange={this.moveTab} 
@@ -138,55 +144,9 @@ class NavTabs extends React.Component {
           onChange={this.handleChange}
         />}
         </div>
-        <TextField
-          id="outlined-text-input"
-          label="Username"
-          className={classes.textField}
-          type="text"
-          fullWidth={true}
-          margin="normal"
-          name="username"
-          onChange={this.handleChange}
-        />
-         <TextField
-          id="outlined-text-input"
-          label="First Name"
-          className={classes.textField}
-          type="text"
-          fullWidth={true}
-          margin="normal"
-          name="first_name"
-          onChange={this.handleChange}
-        />
-        <TextField
-          id="outlined-text-input"
-          label="Last Name"
-          className={classes.textField}
-          type="text"
-          fullWidth={true}
-          margin="normal"
-          name="last_name"
-          onChange={this.handleChange}
-        />
-          <TextField
-          
-          id="outlined-password-input"
-          label="Password"
-          className={classes.textField}
-          type="password"
-          fullWidth={true}
-          margin="normal"
-          name="password"
-          onChange={this.handleChange}
-        />
-        
-          <br />
-          <br />
-          <Button variant="contained" color="primary" className={classes.button} style={btnWidth} onClick={this.handleSubmit}>
-            Sign Up
-        </Button>
-        Already signed up?&nbsp;<Button onClick={this.props.logins.bind(this)}>Login Here</Button>
-                &nbsp;instead.
+
+        <Button onClick={this.props.signUp.bind(this)}>Sign Up</Button>
+       
       </form>
 
       
