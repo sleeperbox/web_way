@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Tab from '@material-ui/core/Tab';
@@ -44,13 +42,33 @@ class NavTabs extends React.Component {
     this.state = {
       value: 0,
       email: "",
-      username: "",
-      first_name: "",
-      last_name: "",
       password: "",
+      isLogin: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillMount(){
+    const { isLogin } = this.state;
+    if(isLogin == true){
+      console.log('login')
+    } else{
+      console.log('gagal')
+    }
+  
+  }
+  componentDidMount(){
+    
+  }
+
+  componentDidUpdate(){
+    const { isLogin } = this.state;
+    if(isLogin == true){
+      console.log('login berhasil')
+    } else {
+      console.log('login gagal')
+    }
   }
 
   handleChange(event) {
@@ -62,19 +80,24 @@ class NavTabs extends React.Component {
     });
   }
 
+  shouldComponentUpdate(newProps, newState) {
+    if (newState.isLogin || newState.warning || newState.kode) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   handleSubmit() {
     axios({
       method: "POST",
-      url: "http://localhost:8080/api/register",
+      url: "http://localhost:8080/api/login",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
       },
       data: {
         email: this.state.email,
-        username: this.state.username,
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
         password: this.state.password
       }
     }).then(result =>
@@ -85,7 +108,6 @@ class NavTabs extends React.Component {
       })
     );
   }
-  
   render() {
     const btnColor = {
       background: '#dd5044',
@@ -108,32 +130,7 @@ class NavTabs extends React.Component {
               </Button>
               <br />
               <br />
-
-        <div className={classes.root}>
-          <AppBar position="static" color="default">
-            <Tabs 
-              variant="fullWidth" 
-              value={value} 
-              onChange={this.moveTab} 
-              indicatorColor="primary"
-              textColor="primary"
-             
-            >
-              <LinkTab label="telepon" classes={{ root: classes.tabRoot }}/>
-              <LinkTab label="email" classes={{ root: classes.tabRoot }}/>
-            </Tabs>
-          </AppBar>
-          {value === 0 && <TextField
-          id="outlined-text-input"
-          label="Telepon"
-          className={classes.textField}
-          type="number"
-          margin="normal"
-          fullWidth={true}
-          name="phone"
-          onChange={this.handleChange}
-        />}
-          {value === 1 &&   <TextField
+          <TextField
           id="outlined-text-input"
           label="Email"
           fullWidth={true}
@@ -142,9 +139,22 @@ class NavTabs extends React.Component {
           margin="normal"
           name="email"
           onChange={this.handleChange}
-        />}
-        </div>
-
+        />
+         <TextField
+          id="outlined-text-input"
+          label="Password"
+          fullWidth={true}
+          className={classes.textField}
+          type="password"
+          margin="normal"
+          name="password"
+          onChange={this.handleChange}
+        />
+        <br />
+        <br />
+         <Button variant="contained" className={classes.button} color="primary" style={btnWidth} onClick={this.handleSubmit}>
+                  Login
+              </Button>
         <Button onClick={this.props.signUp.bind(this)}>Sign Up</Button>
        
       </form>
