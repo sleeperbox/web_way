@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App'
+import { HashRouter, Route } from "react-router-dom";
+import App from './App';
+import Profile from './components/profile';
 
-const Main = () => (
+
+
+ReactDOM.render(
+  <HashRouter>
     <div>
-      <App/>
+      <Route path="/" component={App} exact />
+      <Route path="/profile" component={Profile} />
+     
     </div>
-    )
-
-ReactDOM.render(<Main />, document.getElementById('root'));
+  </HashRouter>,
+  document.getElementById("root")
+);
