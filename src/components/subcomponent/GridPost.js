@@ -27,8 +27,8 @@ export default class GridPost extends Component {
   }
   
   componentWillMount() {
-    axios.get('http://localhost:8080/api/posts').then(result => this.setState({posts: result.data}))
-    axios.get('http://localhost:8080/api/user').then(result => this.setState({users: result.data}))
+    axios.post('http://localhost:8080/api/posting/trending').then(result => this.setState({posts: result.data}))
+    axios.post('http://localhost:8080/api/user/trending').then(result => this.setState({users: result.data}))
 
   }
 
@@ -54,7 +54,7 @@ export default class GridPost extends Component {
       <div>Trending Contents</div>
     </ExpansionPanelSummary>
     <ExpansionPanelDetails>
-      <div>
+      {posts.length === 0 ? <div><p>No Trending Content For Today...</p></div> :  <div>
         <GridList cellHeight={200} spacing={1}>
           {posts.map(data => (
           <GridListTile key={data._id} cols={1} rows={1}>
@@ -72,7 +72,7 @@ export default class GridPost extends Component {
           </GridListTile>
           ))}
         </GridList>
-      </div>
+      </div>}
     </ExpansionPanelDetails>
   </ExpansionPanel>
   }
@@ -84,8 +84,7 @@ export default class GridPost extends Component {
       <div>Most Valuable Users</div>
     </ExpansionPanelSummary>
     <ExpansionPanelDetails>
-    <div>
-    <Table>
+    {users.length === 0 ? <div><p>No valuable users yet...</p></div> : <Table>
         <TableHead>
           <TableRow>
             <TableCell>Username</TableCell>
@@ -104,8 +103,7 @@ export default class GridPost extends Component {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
-      </div>
+      </Table>}
     </ExpansionPanelDetails>
   </ExpansionPanel>
   }

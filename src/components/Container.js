@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import IndexGrid from './subcomponent/index';
+import Bg from '../../public/images/bg.png' 
+
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    background: '#f7f7f7f7', 
-  },
-  
+    background: 'url(' + Bg + ')'
+  }
 });
 
 function PaperSheet(props) {
