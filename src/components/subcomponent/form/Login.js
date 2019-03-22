@@ -65,7 +65,9 @@ class NavTabs extends React.Component {
   componentDidUpdate(){
     const { isLogin } = this.state;
     if(isLogin == true){
-      console.log('login berhasil')
+      localStorage.setItem("email", JSON.stringify(this.state.email));
+      localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
+      window.location = "#/profile";
     } else {
       console.log('login gagal')
     }
