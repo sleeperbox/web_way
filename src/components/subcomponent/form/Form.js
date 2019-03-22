@@ -18,6 +18,7 @@ function TabContainer(props) {
   );
 }
 
+
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -49,7 +50,10 @@ class NavTabs extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
-
+  moveTab = (event, value) => {
+    this.setState({ value });
+  };
+  
   handleChange(event) {
     let target = event.target;
     let value = target.value;

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Container from './Container';
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    background: '#f7f7f7f7', 
+    background: 'blue', 
     width: '100%',
   },
   
@@ -17,7 +18,7 @@ function PaperSheet(props) {
   return (
     <Grid container spacing={16}>
       <Paper className={classes.root} elevation={1} style={{paddingLeft: 0, paddingRight: 0}}>
-        
+        <Container/>
       </Paper>
     </Grid>
   );
