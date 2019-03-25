@@ -7,8 +7,8 @@ import Container from './Container';
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    background: 'blue', 
-    width: '100%',
+    background: '#f7f7f7', 
+    maxWidth: '100%',
   },
   
 });

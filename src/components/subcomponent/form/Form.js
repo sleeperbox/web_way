@@ -8,6 +8,12 @@ import Button from '@material-ui/core/Button';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import axios from "axios";
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 function TabContainer(props) {
@@ -16,6 +22,9 @@ function TabContainer(props) {
       {props.children}
     </Typography>
   );
+}
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
 }
 
 
@@ -34,7 +43,7 @@ const styles = theme => ({
   },
 });
 
-class NavTabs extends React.Component {
+class Form extends React.Component {
 
   constructor(props) {
     super(props);
@@ -45,15 +54,47 @@ class NavTabs extends React.Component {
         first_name: "",
         last_name: "",
         password: "",
+        isLogin: "",
+        token: "",
+        warning: null,
+        open: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+  AlertOpen = () => {
+    this.setState({ open: true });
+  };
   moveTab = (event, value) => {
     this.setState({ value });
   };
-  
+  componentWillMount() {
+    this.setState({
+      isLogin: localStorage.getItem("auth")
+    });
+  }
+
+  componentDidMount() {
+    
+  }
+
+
+  shouldComponentUpdate(newProps, newState) {
+    if (newState.isLogin || newState.warning) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const { isLogin } = this.state;
+    if (isLogin === true) {
+      localStorage.setItem("email", JSON.stringify(this.state.email));
+      localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
+      window.location = "#/profile";
+    }
+  }
+
   handleChange(event) {
     let target = event.target;
     let value = target.value;
@@ -63,6 +104,9 @@ class NavTabs extends React.Component {
     });
   }
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
   handleSubmit() {
     axios({
       method: "POST",
@@ -84,7 +128,7 @@ class NavTabs extends React.Component {
         isLogin: result.data.auth,
         token: result.data.token
       })
-    );
+    )
   }
   
   render() {
@@ -99,8 +143,37 @@ class NavTabs extends React.Component {
     }
     const { classes } = this.props;
     const { value } = this.state;
+    const { warning } = this.state;
     return (
-      <form className={classes.container} noValidate autoComplete="off">
+      
+      <form className={classes.container}>
+      {warning === 1 ? (
+             <div>
+       
+             <Dialog
+               open={this.state.open}
+               TransitionComponent={Transition}
+               keepMounted
+               onClose={this.handleClose}
+               aria-labelledby="alert-dialog-slide-title"
+               aria-describedby="alert-dialog-slide-description"
+             >
+               <DialogTitle id="alert-dialog-slide-title">
+                 {"Use Google's location service?"}
+               </DialogTitle>
+               <DialogContent>
+                 <DialogContentText id="alert-dialog-slide-description">
+                    Email is Already Use Please use Another Email !
+                 </DialogContentText>
+               </DialogContent>
+               <DialogActions>
+                 <Button onClick={this.handleClose} color="primary">
+                   Ok
+                 </Button>
+               </DialogActions>
+             </Dialog>
+           </div>
+            ) : null}
         <Button variant="contained" className={classes.button} style={btnColor}>
                   Log in with google
                  
@@ -198,8 +271,8 @@ class NavTabs extends React.Component {
   }
 }
 
-NavTabs.propTypes = {
+Form.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavTabs);
+export default withStyles(styles)(Form);
