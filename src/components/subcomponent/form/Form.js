@@ -15,7 +15,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -62,9 +61,7 @@ class Form extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  AlertOpen = () => {
-    this.setState({ open: true });
-  };
+
   moveTab = (event, value) => {
     this.setState({ value });
   };
@@ -104,9 +101,16 @@ class Form extends React.Component {
     });
   }
 
+  setWarning = () => {
+    this.setState({
+      warning: null
+    })
+  }
+
   handleClose = () => {
     this.setState({ open: false });
   };
+ 
   handleSubmit() {
     axios({
       method: "POST",
@@ -159,7 +163,7 @@ class Form extends React.Component {
                aria-describedby="alert-dialog-slide-description"
              >
                <DialogTitle id="alert-dialog-slide-title">
-                 {"Use Google's location service?"}
+                 {"Warning !"}
                </DialogTitle>
                <DialogContent>
                  <DialogContentText id="alert-dialog-slide-description">
@@ -167,7 +171,7 @@ class Form extends React.Component {
                  </DialogContentText>
                </DialogContent>
                <DialogActions>
-                 <Button onClick={this.handleClose} color="primary">
+                 <Button onClick={this.this.handleClose} color="primary">
                    Ok
                  </Button>
                </DialogActions>
