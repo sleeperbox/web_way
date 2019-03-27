@@ -3,31 +3,24 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import IndexGrid from './subcomponent/index';
-import Bg from '../../public/images/bg.png' 
-
+import Container from './Container';
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    background: 'url(' + Bg + ')'
-  }
+    background: '#f7f7f7', 
+    maxWidth: '100%',
+  },
+  
 });
 
 function PaperSheet(props) {
-  
   const { classes } = props;
-  
-
   return (
     <Grid container spacing={16}>
-      <Grid item xs={12} style={{paddingLeft: 0, paddingRight: 0}}>
-          <Paper className={classes.root} elevation={1}>
-            <IndexGrid/>
-          </Paper>
-      </Grid>
+      <Paper className={classes.root} elevation={1} style={{paddingLeft: 0, paddingRight: 0}}>
+        <Container/>
+      </Paper>
     </Grid>
-     
-  
   );
 }
 

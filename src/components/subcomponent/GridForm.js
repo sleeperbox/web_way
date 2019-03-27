@@ -1,27 +1,42 @@
 
 import React, { Component } from "react";
 import Form from './form/Form';
+import Login from './form/Login';
+
+
 
 export default class GridForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-           
+            choice: 0,
         };
     }
 
+    goToLogin() {
+        this.setState({choice: 1})    
+    }
+
+    up(){
+        this.setState({choice: 0})    
+       
+    }
+
     render () {
-        
-     
+        console.log(this.state.choice)
+        const {choice} = this.state
+        const grid = {
+            height: 658,
+        }
+
         return (
-        <div>
-            <div>
+            
+            <div style={grid}>
                 <h1>WAY</h1>
-                <p>Sign Up or Log in</p>
+                <p>Sign Up or Login</p>
+                {choice === 0 ? <Form logins = {this.goToLogin.bind(this)}/> : <Login signUp = {this.up.bind(this)}/>}
             </div>
-            <Form/>
-        </div>
         );
     }
 
