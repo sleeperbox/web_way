@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
@@ -19,9 +15,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 
 import axios from "axios";
+
 
 export default class GridPost extends Component {
   constructor(props) {
@@ -60,56 +58,52 @@ export default class GridPost extends Component {
 
   imageClicked() {
     return <div>
-       
-             <Dialog
-               open={this.state.open}
-               keepMounted
-               onClose={this.handleClose}
-               aria-labelledby="alert-dialog-slide-title"
-               aria-describedby="alert-dialog-slide-description"
-               fullWidth
-               style={{textAlign: "center"}}
-             >
-               <DialogTitle id="alert-dialog-slide-title">
-                 {"For More Experience"}
-               </DialogTitle>
-               <br/>
-               <DialogContent>
-                 <DialogContentText id="alert-dialog-slide-description" style={{textAlign:"center"}}>
-                 <img src="https://www.lez.brussels/sites/default/files/playstore.png" /> 
-                 </DialogContentText>
-               </DialogContent>
-               <DialogActions>
-                 <Button onClick={this.handleClose} color="primary">
-                   BACK
-                 </Button>
-               </DialogActions>
-             </Dialog>
-           </div>
+      <Dialog
+        open={this.state.open}
+        keepMounted
+        onClose={this.handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+        fullWidth
+        style={{textAlign: "center"}}
+      >
+      <DialogTitle id="alert-dialog-slide-title">
+        {"For More Experience"}
+      </DialogTitle>
+        <br/>
+      <DialogContent>
+      <DialogContentText id="alert-dialog-slide-description" style={{textAlign:"center"}}>
+        <img src="https://www.lez.brussels/sites/default/files/playstore.png" /> 
+      </DialogContentText>
+        </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                BACK
+              </Button>
+        </DialogActions>
+      </Dialog>
+      </div>
   }
 
   render() {
     const { open } = this.state;
     return (
       <div>
+        <div>
         {open ? this.imageClicked() : null}
         {this.trendingPost()}
         {this.trendingUser()}
+        {this.trendingCategory()}
+        </div>
       </div>
     );
   }
 
   trendingPost() {
-    const { expanded, posts } = this.state;
+    const { posts } = this.state;
     return (
-      <ExpansionPanel
-        expanded={expanded === "panel1"}
-        onChange={() => this.handleChange("panel1")}
-      >
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <div>Trending Contents</div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+      <div style={{marginTop: 15}}>
+      <p style={{ fontSize: "1.5em", margin: 5}}>trending now</p>
           {posts.length === 0 ? (
             <div>
               <p>No Trending Content For Today...</p>
@@ -147,28 +141,21 @@ export default class GridPost extends Component {
               </GridList>
             </div>
           )}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      </div>
     );
   }
 
   trendingUser() {
-    const { expanded, users } = this.state;
+    const { users } = this.state;
     return (
-      <ExpansionPanel
-        expanded={expanded === "panel2"}
-        onChange={() => this.handleChange("panel2")}
-      >
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <div>Most Valuable Users</div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+      <div style={{marginTop: 10}}>
+         <p style={{fontSize: "1.5em", margin: 5}}>valuable user</p>
           {users.length === 0 ? (
             <div>
               <p>No valuable users yet...</p>
             </div>
           ) : (
-            <Table>
+            <Table style={{marginTop: -15}}>
               <TableHead>
                 <TableRow>
                   <TableCell>Username</TableCell>
@@ -189,8 +176,47 @@ export default class GridPost extends Component {
               </TableBody>
             </Table>
           )}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      </div>
+    );
+  }
+
+  trendingCategory() {
+    return (
+    <div style={{marginTop: 10}}>
+      <div style={{padding: 15, margin: 2}}>
+      <p style={{ fontSize: "1.2em"}}>Most Visited Category</p>
+      <div style={{maxWidth: "100%"}}>
+        <Chip
+            avatar={<Avatar alt="Natacha" src="../../../public/images/default.png" />}
+            label="Other"
+            href="/profile"
+            clickable
+            style={{margin: 8}}
+          />
+        <Chip
+            avatar={<Avatar alt="Natacha" src="../../../public/images/default.png" />}
+            label="Computer &amp; Gadget"
+            href="/profile"
+            clickable
+            style={{margin: 8}}
+          />
+          <Chip
+            avatar={<Avatar alt="Natacha" src="../../../public/images/default.png" />}
+            label="Family &amp; Love"
+            href="/profile"
+            clickable
+            style={{margin: 8}}
+          />
+          <Chip
+            avatar={<Avatar alt="Natacha" src="../../../public/images/default.png" />}
+            label="Riddles"
+            href="/profile"
+            clickable
+            style={{margin: 8}}
+          />
+        </div>
+      </div>
+    </div>
     );
   }
 }
