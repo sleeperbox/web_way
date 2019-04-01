@@ -2,7 +2,48 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import axios from "axios";
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles1 = theme => ({ 
+  error: {
+    background: 'red',
+    color: 'white'
+  },
+  
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+ 
+});
+function MySnackbarContent(props) {
+  const { classes, className, message, onClose, variant, ...other } = props;
+
+  return (
+    <SnackbarContent
+      
+      aria-describedby="client-snackbar"
+      message={
+        <span id="client-snackbar" className={classes.message}>
+          {message}
+        </span>
+      }
+      action={[
+        
+      ]}
+      {...other}
+    />
+  );
+}
+MySnackbarContent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  message: PropTypes.node,
+  onClose: PropTypes.func,
+  variant: PropTypes.oneOf(['error']).isRequired,
+};
 
 export default class Login extends React.Component {
 
@@ -12,7 +53,7 @@ export default class Login extends React.Component {
       email: '',
       password: '',
       isLogin: false,
-     
+      warning: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,8 +94,6 @@ export default class Login extends React.Component {
         localStorage.setItem("email", JSON.stringify(this.state.email));
         localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
         window.location = "#/profile";
-      } else {
-        console.log('login gagal')
       }
     }
     // shouldComponentUpdate(newProps, newState){
@@ -64,35 +103,68 @@ export default class Login extends React.Component {
     //     return false;
     //   }
     // }
+    googleSignin() {
+      window.location = "http://localhost:8080/api/auth/google"      
+    }
 
     render() {
-        const { email, password } = this.state;
+      
+        const btnWidth = {
+          width: '100%'
+        }
+        const btnColor = {
+          background: '#dd5044',
+          color: '#ffffff',
+          width: '100%'
+        }
+        const { warning } = this.state;
+        const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
+        const { classes } = this.props;
+
         return (
           <ValidatorForm onSubmit={this.handleSubmit}>
-                <TextValidator
-                    label="Email"
-                    onChange={this.handleChange}
-                    name="email"
-                    type="email"
-                    value={email}
-                    validators={['required', 'isEmail']}
-                    errorMessages={['this field is required', 'email is not valid']}
-                />
-                <br />
-                <TextValidator
-                    label="Password"
-                    onChange={this.handleChange}
-                    name="password"
-                    value={password}
-                    type="password"
-                    validators={['required']}
-                    errorMessages={['this field is required']}
-                />
-                <br />
-                <Button color="primary" variant="contained" type="submit">
-                    login
-                </Button>
-            </ValidatorForm>
-        );
+          {warning === 1 ? (
+            <MySnackbarContentWrapper
+              style={{background: '#ffa000'}}
+              variant="error"
+              message="Username/Email Has Been Used !"
+            />
+          ) : null}
+              <br />
+              <br />
+            <Button variant="contained" style={btnColor} onClick={this.googleSignin.bind(this)}>
+                sign in with google 
+            </Button>
+              <br />
+              <br />
+          <TextValidator
+            label="Email"
+            onChange={this.handleChange}
+            name="email"
+            type="email"
+            required={true}
+            fullWidth={true}
+          />
+          <br />
+          <TextValidator
+            label="Password"
+            onChange={this.handleChange}
+            name="password"
+            required={true}
+            type="password"
+            fullWidth={true}
+          />
+          <br />
+          <br />
+          <Button color="primary" variant="contained" type="submit" style={btnWidth}>
+              Sign in
+          </Button>
+          <br />
+          <br />
+          Don't have an Account? <Button onClick={this.props.signUp.bind(this)}>
+            sign up here
+          </Button>
+        </ValidatorForm>  
+      );
     }
 }
