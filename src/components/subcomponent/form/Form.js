@@ -263,7 +263,7 @@ class Form extends React.Component {
           <Button variant="contained" type="submit" color="primary" className={classes.button} style={btnWidth}>
             Sign Up
         </Button>
-        Already signed up?&nbsp;<Button onClick={this.props.logins.bind(this)}>Sign in Here</Button>
+        Already signed up?&nbsp;<Button onClick={this.props.logins.bind(this)}><u><b>Login Here</b></u></Button>
                 &nbsp;instead.
       </ValidatorForm>
 
