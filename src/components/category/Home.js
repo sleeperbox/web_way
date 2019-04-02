@@ -16,7 +16,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   card: {
@@ -50,12 +50,18 @@ class RecipeReviewCard extends React.Component {
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
-
+  logout() {
+    localStorage.removeItem('email')
+    localStorage.removeItem('auth')
+    localStorage.removeItem('menu')
+    window.location='#/login';
+}
   render() {
     const { classes } = this.props;
 
     return (
       <Card className={classes.card}>
+      <Button onClick={this.logout.bind(this)} variant="contained" color="primary">LOGOUT</Button>
         <CardHeader
           avatar={
             <Avatar aria-label="Recipe" className={classes.avatar}>

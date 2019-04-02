@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Home from './Home';
+import TrendingIcon from '@material-ui/icons/TrendingUp';
 
 function TabContainer(props) {
   return (
@@ -37,7 +38,7 @@ const styles = theme => ({
 
 class ScrollableTabsButtonAuto extends React.Component {
   state = {
-    value: 0,
+    value: 1,
   };
 
   handleChange = (event, value) => {
@@ -59,6 +60,7 @@ class ScrollableTabsButtonAuto extends React.Component {
           variant="scrollable"
           scrollButtons="auto"
         >
+            <Tab icon={<TrendingIcon/>}/>
             <Tab label="Home" />
             <Tab label="Komputer & gadget" />
             <Tab label="Keluarga & Asmara" />
@@ -74,21 +76,25 @@ class ScrollableTabsButtonAuto extends React.Component {
         <br />
         <Grid container>
           <Grid item xs sm={8}>
-              {value === 0 && <TabContainer><Home/></TabContainer>}
-              {value === 1 && <TabContainer>Komputer & gadget</TabContainer>}
-              {value === 2 && <TabContainer>Keluarga dan asmara</TabContainer>}
-              {value === 3 && <TabContainer>Fakta & rumor</TabContainer>}
-              {value === 4 && <TabContainer>Bisnis & Pekerjaan</TabContainer>}
-              {value === 5 && <TabContainer>Fashion & gaya hidup</TabContainer>}
-              {value === 6 && <TabContainer>Quotes</TabContainer>} 
-              {value === 7 && <TabContainer>Riddless</TabContainer>}    
-              {value === 8 && <TabContainer>Lainnya</TabContainer>}    
+              {value === 0 && <Paper style={{height:'100px'}}><TabContainer>Trending</TabContainer></Paper>}
+              {value === 1 && <TabContainer><Home/></TabContainer>}
+              {value === 2 && <TabContainer>Komputer & gadget</TabContainer>}
+              {value === 3 && <TabContainer>Keluarga dan asmara</TabContainer>}
+              {value === 4 && <TabContainer>Fakta & rumor</TabContainer>}
+              {value === 5 && <TabContainer>Bisnis & Pekerjaan</TabContainer>}
+              {value === 6 && <TabContainer>Fashion & gaya hidup</TabContainer>}
+              {value === 7 && <TabContainer>Quotes</TabContainer>} 
+              {value === 8 && <TabContainer>Riddless</TabContainer>}    
+              {value === 9 && <TabContainer>Lainnya</TabContainer>}    
           </Grid>
           <Grid item xs sm={4}>
               <TabContainer>
                 xs=12 sm=4
               </TabContainer>
           </Grid>
+          {value === 0 && <Grid item xs={12}>
+          <Paper className={classes.paper}>bottom trending topik</Paper>
+        </Grid>}
       </Grid>
       </div>
     );
