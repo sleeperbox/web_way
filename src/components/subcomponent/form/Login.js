@@ -138,10 +138,10 @@ export default class Login extends React.Component {
               <br />
               <br />
           <TextValidator
-            label="Email"
+            label="Email, Phone Number or Username"
             onChange={this.handleChange}
             name="email"
-            type="email"
+            type="text"
             required={true}
             fullWidth={true}
           />
@@ -162,7 +162,7 @@ export default class Login extends React.Component {
           <br />
           <br />
           Don't have an Account? <Button onClick={this.props.signUp.bind(this)}>
-            sign up here
+            <u><b>sign up here</b></u>
           </Button>
         </ValidatorForm>  
       );

@@ -86,6 +86,7 @@ class Form extends React.Component {
         isLogin: "",
         token: "",
         warning: null,
+        phone_number: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -120,32 +121,58 @@ class Form extends React.Component {
     let target = event.target;
     let value = target.value;
     let name = target.name;
+    
     this.setState({
       [name]: value
     });
   }
   handleSubmit() {
-    axios({
-      method: "POST",
-      url: "http://localhost:8080/api/register",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      data: {
-        email: this.state.email,
-        username: this.state.username,
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        password: this.state.password
-      }
-    }).then(result =>
-      this.setState({
-        warning: result.data,
-        isLogin: result.data.auth,
-        token: result.data.token
-      })
-    )
+    if(this.state.value === 0){
+      axios({
+        method: "POST",
+        url: "http://localhost:8080/api/register/phone",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        data: {
+          phone_number: this.state.phone_number,
+          username: this.state.username,
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          password: this.state.password,
+        }
+      }).then(result =>
+        this.setState({
+          warning: result.data,
+          isLogin: result.data.auth,
+          token: result.data.token
+        })
+      )
+    } else {
+      axios({
+        method: "POST",
+        url: "http://localhost:8080/api/register",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        data: {
+          email: this.state.email,
+          username: this.state.username,
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          password: this.state.password,
+        }
+      }).then(result =>
+        this.setState({
+          warning: result.data,
+          isLogin: result.data.auth,
+          token: result.data.token
+        })
+      )
+    }
+    
   }
   googleSignin() {
     window.location = "http://localhost:8080/api/auth/google"
@@ -202,7 +229,7 @@ class Form extends React.Component {
             margin="normal"
             fullWidth={true}
             required={true}
-            name="phone"
+            name="phone_number"
             placeholder="082316xxxxx"
             onChange={this.handleChange}
           />}
