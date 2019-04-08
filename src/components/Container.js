@@ -19,15 +19,13 @@ function PaperSheet(props) {
   
 
   return (
-    <Grid container spacing={16}>
+    <Grid container spacing={16} style={{}}>
       <Grid item xs={12} style={{paddingLeft: 0, paddingRight: 0}}>
-          <Paper className={classes.root} elevation={1}>
+          <Paper className={classes.root} elevation={0} style={{height: "110%"}}>
             <IndexGrid/>
           </Paper>
       </Grid>
     </Grid>
-     
-  
   );
 }
 

@@ -5,8 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import GridPost from './GridPost';
 import GridForm from './GridForm';
-import GridBottom from './GridBottom';
-import { spacing } from '@material-ui/system';
 
 const styles = theme => ({
   root: {
@@ -26,23 +24,15 @@ function FullWidthGrid(props) {
   
   return (
     <div className={classes.root}>
-      <Grid container spacing={24}>
+      <Grid container spacing={24} style={{border: "none"}}>
         <Grid item xs={12} sm={6}>
-          
             <GridPost/>
-
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
             <GridForm/>
           </Paper>  
-        </Grid>
-        <Grid item xs={12} sm={12}>
-          <Paper className={classes.paper} >
-            <GridBottom/>
-          </Paper>  
-        </Grid>
-        
+        </Grid>   
       </Grid>
     </div>
   );
