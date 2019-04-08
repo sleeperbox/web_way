@@ -102,16 +102,17 @@ export default class Trending extends Component {
         <div style={{padding: 15, margin: 2}}>
             <p style={{ fontSize: "1.2em"}}>Valuable User</p>
             <div style={{maxWidth: "100%"}}>
-                {users.length === 0 ? (
+                {users.length === null ? (
                     <div>
                     <p>No valuable users yet...</p>
                     </div>
                 ) : (
-                    <div style={{maxWidth: "100%"}}>
-                    <GridList cols={5} cellHeight={100} spacing={2}>
+                  <div style={{maxWidth: "100%"}}>
+                   <GridList cols={5} cellHeight={100} spacing={2}>
                     {users.map(user => (
+                      
                     <Card style={{margin: 20}}>
-                        <CardContent key={user._id}>
+                        <CardContent>
                             <center>
                                 <Avatar src={"http://localhost:3000/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
                                 <br />
@@ -119,6 +120,7 @@ export default class Trending extends Component {
                             </center>
                         </CardContent>
                     </Card>
+                  
                     ))}
                     </GridList>
                     </div>

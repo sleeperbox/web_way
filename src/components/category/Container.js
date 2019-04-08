@@ -97,7 +97,8 @@ class Container extends React.Component {
       {value === 0 && <Grid item xs={12}>
         <center>
         <DialogContentText style={{textAlign:"center"}}>
-            <p>Get the Application</p>
+            Get the Application
+            <br />
             <img src="https://www.lez.brussels/sites/default/files/playstore.png" style={{height:50, weight:50, padding:5}}/>
         </DialogContentText>
         </center>  
