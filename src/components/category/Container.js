@@ -6,9 +6,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import Grid from '@material-ui/core/Grid';
-import Home from './Home';
+import Home from './home/Home';
 import TrendingIcon from '@material-ui/icons/TrendingUp';
+import Trending from './trending/Trending';
+import Button from '@material-ui/core/Button';
 
 function TabContainer(props) {
   return (
@@ -26,17 +29,10 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
-  containerPage:{
-    margin: 15,
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+ 
 });
 
-class ScrollableTabsButtonAuto extends React.Component {
+class Container extends React.Component {
   state = {
     value: 1,
   };
@@ -44,7 +40,12 @@ class ScrollableTabsButtonAuto extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-
+  logout() {
+    localStorage.removeItem('email')
+    localStorage.removeItem('auth')
+    localStorage.removeItem('menu')
+    window.location='#/login';
+  }
   render() {
     const { classes } = this.props;
     const { value } = this.state;
@@ -76,7 +77,7 @@ class ScrollableTabsButtonAuto extends React.Component {
         <br />
         <Grid container>
           <Grid item xs sm={8}>
-              {value === 0 && <Paper style={{height:'100px'}}><TabContainer>Trending</TabContainer></Paper>}
+              {value === 0 && <Trending/>}
               {value === 1 && <TabContainer><Home/></TabContainer>}
               {value === 2 && <TabContainer>Komputer & gadget</TabContainer>}
               {value === 3 && <TabContainer>Keluarga dan asmara</TabContainer>}
@@ -89,20 +90,25 @@ class ScrollableTabsButtonAuto extends React.Component {
           </Grid>
           <Grid item xs sm={4}>
               <TabContainer>
-                xs=12 sm=4
+              <Button onClick={this.logout.bind(this)} variant="contained" color="primary">LOGOUT</Button>
               </TabContainer>
           </Grid>
-          {value === 0 && <Grid item xs={12}>
-          <Paper className={classes.paper}>bottom trending topik</Paper>
-        </Grid>}
       </Grid>
+      {value === 0 && <Grid item xs={12}>
+        <center>
+        <DialogContentText style={{textAlign:"center"}}>
+            <p>Get the Application</p>
+            <img src="https://www.lez.brussels/sites/default/files/playstore.png" style={{height:50, weight:50, padding:5}}/>
+        </DialogContentText>
+        </center>  
+        </Grid>}
       </div>
     );
   }
 }
 
-ScrollableTabsButtonAuto.propTypes = {
+Container.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ScrollableTabsButtonAuto);
+export default withStyles(styles)(Container);
