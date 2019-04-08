@@ -17,7 +17,6 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-
 const styles = theme => ({
   card: {
     maxWidth: '100%',
@@ -50,12 +49,13 @@ class RecipeReviewCard extends React.Component {
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
-
+ 
   render() {
     const { classes } = this.props;
 
     return (
       <Card className={classes.card}>
+     
         <CardHeader
           avatar={
             <Avatar aria-label="Recipe" className={classes.avatar}>
