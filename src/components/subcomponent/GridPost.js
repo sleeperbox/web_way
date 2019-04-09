@@ -315,7 +315,8 @@ export default class GridPost extends Component {
             <CardContent onClick={() => this.categoryClicked("other")}>
               <center>
                 <img src="http://localhost:3000/src/client/assets/icon/other.png"height={50} width={50}/>
-                <small>other</small>
+                
+                <small> other</small>
               </center>
             </CardContent>
           </Card>
