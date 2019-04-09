@@ -50,9 +50,9 @@ export default class Trending extends Component {
   trendingPost() {
     const { posts } = this.state;
     return (
-      <div style={{marginTop: 15}}>
-      <div style={{padding: 15, margin: 2}}>
-      <p style={{ fontSize: "1.5em", margin: 5}}>trending now</p>
+      <div>
+      <div style={{margin: -10}}>
+     
           {posts.length === 0 ? (
             <div>
               <p>No Trending Content For Today...</p>
