@@ -47,17 +47,17 @@ export default class GridPost extends Component {
 
   componentWillMount() {
     axios
-      .post("http://localhost:8080/api/posting/trending")
+      .post("http://192.168.100.18:8080/api/posting/trending")
       .then(result => this.setState({ posts: result.data }));
     axios
-      .post("http://localhost:8080/api/user/trending")
+      .post("http://192.168.100.18:8080/api/user/trending")
       .then(result => this.setState({ users: result.data }));
   }
 
   categoryClicked(value){
     axios({
       method: "post",
-      url: "http://localhost:8080/api/posting/tag/limit",
+      url: "http://192.168.100.18:8080/api/posting/tag/limit",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
@@ -315,7 +315,6 @@ export default class GridPost extends Component {
             <CardContent onClick={() => this.categoryClicked("other")}>
               <center>
                 <img src="http://localhost:3000/src/client/assets/icon/other.png"height={50} width={50}/>
-                
                 <small> other</small>
               </center>
             </CardContent>

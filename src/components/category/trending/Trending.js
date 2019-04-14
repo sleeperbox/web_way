@@ -27,10 +27,10 @@ export default class Trending extends Component {
 
   componentWillMount() {
     axios
-      .post("http://localhost:8080/api/posting/trending")
+      .post("http://192.168.100.18:8080/api/posting/trending")
       .then(result => this.setState({ posts: result.data }));
     axios
-      .post("http://localhost:8080/api/user/trending")
+      .post("http://192.168.100.18:8080/api/user/trending")
       .then(result => this.setState({ users: result.data }));
   }
 
@@ -120,7 +120,6 @@ export default class Trending extends Component {
                             </center>
                         </CardContent>
                     </Card>
-                  
                     ))}
                     </GridList>
                     </div>

@@ -110,6 +110,7 @@ class Form extends React.Component {
     const { isLogin } = this.state;
     if (isLogin === true) {
       localStorage.setItem("email", JSON.stringify(this.state.email));
+      localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
       localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
       window.location = "#/profile";
     }
@@ -128,7 +129,7 @@ class Form extends React.Component {
     if (this.state.value === 0) {
       axios({
         method: "POST",
-        url: "http://localhost:8080/api/register/phone",
+        url: "http://192.168.100.18:8080/api/register/phone",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -150,7 +151,7 @@ class Form extends React.Component {
     } else {
       axios({
         method: "POST",
-        url: "http://localhost:8080/api/register",
+        url: "http://192.168.100.18:8080/api/register",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -172,7 +173,7 @@ class Form extends React.Component {
     }
   }
   googleSignin() {
-    window.location = "http://localhost:8080/api/auth/google";
+    window.location = "http://192.168.100.18:8080/api/auth/google";
   }
   render() {
     const btnColor = {

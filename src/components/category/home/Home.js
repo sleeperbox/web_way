@@ -70,11 +70,12 @@ class RecipeReviewCard extends React.Component {
           title="Shrimp and Chorizo Paella"
           subheader="September 14, 2016"
         />
-        <CardMedia
+        {/*<CardMedia
           className={classes.media}
           image="../../../public/images/Lighthouse.jpg"
           title="Paella dish"
         />
+        */}
         <CardContent>
           <Typography component="p">
             This impressive paella is a perfect party dish and a fun meal to cook together with your

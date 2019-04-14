@@ -50,7 +50,8 @@ export default class Login extends React.Component {
       email: "",
       password: "",
       isLogin: false,
-      warning: null
+      warning: null,
+      phone_number: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,7 +69,7 @@ export default class Login extends React.Component {
   handleSubmit() {
     axios({
       method: "POST",
-      url: "http://localhost:8080/api/login",
+      url: "http://192.168.100.18:8080/api/login",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
@@ -89,6 +90,7 @@ export default class Login extends React.Component {
     const { isLogin } = this.state;
     if (isLogin === true) {
       localStorage.setItem("email", JSON.stringify(this.state.email));
+      localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
       localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
       window.location = "#/profile";
     }
@@ -101,7 +103,7 @@ export default class Login extends React.Component {
   //   }
   // }
   googleSignin() {
-    window.location = "http://localhost:8080/api/auth/google";
+    window.location = "http://192.168.100.18:8080/api/auth/google";
   }
 
   render() {
