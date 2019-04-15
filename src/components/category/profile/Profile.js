@@ -20,6 +20,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Drawer from '@material-ui/core/Drawer';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import MailIcon from '@material-ui/icons/Mail';
+import Divider from '@material-ui/core/Divider';
+
+
+import MyPost from './MyPost'
 
 import axios from 'axios'
 
@@ -43,7 +52,8 @@ export default class Profile extends Component {
             total_posts: 0,
             total_thanks: 0,
             email: localStorage.getItem('email').slice(1, -1),
-            open: false
+            open: false,
+            bottom: false,
         }
     }
 
@@ -107,6 +117,12 @@ export default class Profile extends Component {
       </Dialog>
     }
 
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+          [side]: open,
+        });
+      };
+
     detailUser(){
         const {username, first_name, last_name, foto, total_friends, total_posts, total_thanks, followed_topic, join_date, awards} = this.state
         return <Grid container>
@@ -135,8 +151,8 @@ export default class Profile extends Component {
 
         <Grid item xs={12} sm={6}>
             <List>
-                <ListItem>
-                    <ListItemText style={textStyling} primary="Posts" secondary={total_posts + " posted"} />
+                <ListItem onClick={this.toggleDrawer('bottom', true)}>
+                    <ListItemText style={textStyling} primary="Posts" secondary={total_posts + " posted"}/>
                     <Avatar  style={{background: "#AF64B6"}}>
                         <PostIcon />
                     </Avatar>
@@ -159,15 +175,37 @@ export default class Profile extends Component {
     }
 
     render(){
+          const myPost = (
+            <div>
+              <MyPost/>
+            </div>
+          );
         return (
             <div>
                 {this.state.open ? this.settingMenu() : null}
+                {this.state.bottom ? (
+                <SwipeableDrawer
+                anchor="bottom"
+                open={this.state.bottom}
+                onClose={this.toggleDrawer('bottom', false)}
+                onOpen={this.toggleDrawer('bottom', true)}
+                >
+                <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={this.toggleDrawer('bottom', false)}
+                    onKeyDown={this.toggleDrawer('bottom', false)}
+                >
+                {myPost}
+            </div>
+
+                </SwipeableDrawer>) : null}
                 <Paper style={{padding: 10}}>
                     <Fab style={{position: "absolute", margin: 10, right: 125, zIndex: 99}} size="small" onClick={this.handleClickOpen}>
                         <Icon path={mdiSettings} size={0.8} color="#444" />
                     </Fab>
                     <center>
-                        <Avatar alt={this.state.username} src={"http://localhost:3000/src/web-api/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
+                        <Avatar alt={this.state.username} src={"http://192.168.100.18/src/web-api/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
                         <h2>{this.state.username}</h2>
                     </center>
                     <div>
@@ -177,7 +215,6 @@ export default class Profile extends Component {
             </div>
         )
     }
-
     
     logout() {
         localStorage.removeItem('email')
