@@ -201,7 +201,7 @@ export default class GridPost extends Component {
                       <img
                       onClick={this.handleClickOpen}
                         src={
-                          "http://localhost:3000/src/web-api/public/posting/foto/" +
+                          "http://192.168.100.18/src/web-api/public/posting/foto/" +
                           data.fotocontent
                         }
                       />
