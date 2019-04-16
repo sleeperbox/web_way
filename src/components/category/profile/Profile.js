@@ -21,11 +21,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Drawer from '@material-ui/core/Drawer';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import MailIcon from '@material-ui/icons/Mail';
-import Divider from '@material-ui/core/Divider';
 
 
 import MyPost from './MyPost'
@@ -151,7 +146,7 @@ export default class Profile extends Component {
 
         <Grid item xs={12} sm={6}>
             <List>
-                <ListItem onClick={this.toggleDrawer('bottom', true)}>
+                <ListItem onClick={this.toggleDrawer('bottom', true)} className="stylist">
                     <ListItemText style={textStyling} primary="Posts" secondary={total_posts + " posted"}/>
                     <Avatar  style={{background: "#AF64B6"}}>
                         <PostIcon />

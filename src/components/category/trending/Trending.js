@@ -68,7 +68,7 @@ export default class Trending extends Component {
                     ) : (
                       <img
                         src={
-                          "http://localhost:3000/src/web-api/public/posting/foto/" +
+                          "http://192.168.100.18/src/web-api/public/posting/foto/" +
                           data.fotocontent
                         }
                       />
@@ -114,7 +114,7 @@ export default class Trending extends Component {
                     <Card style={{margin: 20}}>
                         <CardContent>
                             <center>
-                                <Avatar src={"http://localhost:3000/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
+                                <Avatar src={"http://192.168.100.18/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
                                 <br />
                                 <small>{"@" + user.username}</small>
                             </center>

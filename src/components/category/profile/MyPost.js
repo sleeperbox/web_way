@@ -1,40 +1,13 @@
 import React, { Component } from "react";
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Icon from "@mdi/react";
-import { mdiSettings } from "@mdi/js";
-import FullnameIcon from '@material-ui/icons/PermIdentity';
-import FriendIcon from '@material-ui/icons/Contacts';
-import JoindateIcon from '@material-ui/icons/DirectionsWalk';
-import ThankIcon from '@material-ui/icons/TouchApp';
-import Thumbup from '@material-ui/icons/ThumbUp';
-import Time from '@material-ui/icons/AccessTime';
-import Category from '@material-ui/icons/Loyalty'
-import PostIcon from '@material-ui/icons/BorderColor';
-import TopicIcon from '@material-ui/icons/ShowChart';
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
 import Card from '@material-ui/core/Card';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios'
 import { Divider } from "@material-ui/core";
 
@@ -47,7 +20,8 @@ export default class MyPost extends Component {
             email: localStorage.getItem('email').slice(1, -1),
             open: false,
             posting: [],
-            isloading: true
+            isloading: true,
+            snackbar: false
         }
     }
 
@@ -72,32 +46,67 @@ export default class MyPost extends Component {
         );
     }
 
+    handleClick () {
+        this.setState({ snackbar: true});
+      };
+
+    handleClose = () => {
+        this.setState({ snackbar: false });
+      };
+
+    renderNoPost() {
+        return <div>
+            <Snackbar
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              open
+              autoHideDuration={3000}
+              onClose={this.handleClose}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              action={
+                <IconButton
+                key="close"
+                aria-label="Close"
+                color="inherit"
+              >
+                <CloseIcon />
+              </IconButton>
+              }
+              message={<span id="message-id">You have no post ...</span>}
+            />
+        </div>
+    }
+
     render() {
         const {posting} = this.state
-        console.log(posting)
         return (
             <div>
-                    <Grid container spacing={16} style={{marginTop: 8, height: "325px"}}>
+                {posting.length === 0 ? (this.renderNoPost()) : (
+                    <Grid container spacing={16} style={{marginTop: 8, height: "555px"}}>
                         <Grid item xs={12} xl={12} sm={12} md={12}>
-                            <Grid container  justify="center"  spacing={0}>
+                            <Grid container  justify="center"  spacing={24}>
                                 {posting.map(data => (
-                                    <Grid item key={data._id} style={{padding: 10}}>
-                                            <Card >
+                                    <Grid item key={data._id} style={{padding: 10}} style={{width: "300px"}}>
+                                            <Card>
                                                 <CardActionArea>
                                                     <center style={{marginTop: 25}}>
                                                     {data.fotocontent == null ? (
                                                     <CardMedia>
-                                                        <img height="150" width="150" src={"../../../public/images/default.png"}/>
+                                                        <img height="225" width="225" src={"../../../public/images/default.png"}/>
                                                     </CardMedia>
                                                     ) : (
                                                     <CardMedia>
-                                                        <img height="150" width="150" src={"http://192.168.100.18/src/web-api/public/posting/foto/" + data.fotocontent}/>
+                                                        <img height="225" width="225" src={"http://192.168.100.18/src/web-api/public/posting/foto/" + data.fotocontent}/>
                                                     </CardMedia>
                                                     )}
                                                     </center>
-                                                    <CardContent>
+                                                    <CardContent style={{height: "170px"}}>
                                                         <Typography component="p">
-                                                        {data.content}
+                                                        <span style={{fontWeight: "bold"}}>{data.username}</span> {data.content}
                                                         </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
@@ -119,6 +128,7 @@ export default class MyPost extends Component {
                                 </Grid>
                         </Grid>
                     </Grid>
+                    )}
             </div>
         )
     }
