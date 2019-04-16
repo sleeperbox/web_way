@@ -71,20 +71,30 @@ export default class GridPost extends Component {
   }
 
   pickedCategoryIsNotEmpty() {
+  console.log(this.state)
    const {postsFromCategory} = this.state
    return postsFromCategory.map(data => (
      <div key={data._id}>
+     <Chip
+       avatar={<Avatar alt="Natacha" src={"http://192.168.100.18/src/web-api/public/avatar/" + data.foto} />}
+       label={<b>@{data.username}</b>}
+     /> <span style={{fontSize: 11, float: "right"}}><b>at {data.jam}:{data.menit}</b></span>
+     <br/>
+     <br/>
      <center>
+     {data.fotocontent == null ? (
+      <img 
+        onClick={this.handleClickOpen}
+        src={"../../../public/images/default.png"}  style={{height: "350px", width: "350px"}} />
+      ) : (
      <img 
        onClick={this.handleClickOpen}
-       src={"http://localhost:3000/src/web-api/public/posting/foto/" + data.foto} style={{maxHeight: "500px", maxWidth: "500px"}}/>
+       src={"http://192.168.100.18/src/web-api/public/posting/foto/" + data.fotocontent} style={{height: "350px", width: "350px"}}/>
+      )}
      </center>
-     <div style={{marginTop: 15, padding: 15, margin: 5}}>
-     <Chip
-       avatar={<Avatar alt="Natacha" src={"http://localhost:3000/src/web-api/public/avatar/" + data.foto} />}
-       label={"@" + data.username}
-     />
-       <p>{data.content}</p>
+     <div style={{marginTop: 2, padding: 10, margin: 2}}>
+      <span style={{fontSize: 10}}><b>{data.comment} comment &nbsp;&nbsp; {data.thanks} thanks </b></span>
+       <p style={{fontSize: 12}}>{data.content}</p>
      </div>
      <br/>
      <br/>
@@ -120,7 +130,6 @@ export default class GridPost extends Component {
               <span style={{padding: 10, color: "white"}}>Picked Tag</span>
             </DialogTitle>
             <br/>
-          
             <DialogContent>
             {postsFromCategory.length == 0 ? this.pickedCategoryIsEmpty()  : this.pickedCategoryIsNotEmpty()}
             </DialogContent>
@@ -242,7 +251,7 @@ export default class GridPost extends Component {
             <Chip
                 onClick={this.handleClickOpen}
                 key={user._id}
-                avatar={<Avatar alt="Natacha" src={"http://localhost:3000/src/web-api/public/avatar/" + user.foto} />}
+                avatar={<Avatar alt="Natacha" src={"http://192.168.100.18/src/web-api/public/avatar/" + user.foto} />}
                 label={"@" + user.username}
                 href="/profile"
                 clickable
@@ -266,7 +275,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("business-work")}>
               <center>
-                <img src="http://localhost:3000/src/client/assets/icon/bisnis.png" height={50} width={50}/>
+                <img src="http://192.168.100.18/src/client/assets/icon/bisnis.png" height={50} width={50}/>
                 <small>business</small>
               </center>
             </CardContent>
@@ -274,7 +283,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("fact-rumour")}>
               <center>
-                <img src="http://localhost:3000/src/client/assets/icon/f&r.png" height={50} width={50}/>
+                <img src="http://192.168.100.18/src/client/assets/icon/f&r.png" height={50} width={50}/>
                 <small>fact&amp;rumor</small>
               </center>
             </CardContent>
@@ -282,7 +291,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("fashion-lifestyle")}>
               <center>
-                <img src="http://localhost:3000/src/client/assets/icon/fashion.png" height={50} width={50}/>
+                <img src="http://192.168.100.18/src/client/assets/icon/fashion.png" height={50} width={50}/>
                 <small>fashion</small>
               </center>
             </CardContent>
@@ -290,7 +299,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("computer-gadget")}>
               <center>
-                <img src="http://localhost:3000/src/client/assets/icon/komp.png" height={50} width={50}/>
+                <img src="http://192.168.100.18/src/client/assets/icon/komp.png" height={50} width={50}/>
                 <small>com&amp;gadget</small>
               </center>
             </CardContent>
@@ -298,7 +307,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("family-love")}>
               <center>
-                <img src="http://localhost:3000/src/client/assets/icon/family.png" height={50} width={50}/>
+                <img src="http://192.168.100.18/src/client/assets/icon/family.png" height={50} width={50}/>
                 <small>fams&amp;love</small>
               </center>
             </CardContent>
@@ -306,7 +315,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("riddles")}>
               <center>
-                <img src="http://localhost:3000/src/client/assets/icon/riddle.png" height={50} width={50}/>
+                <img src="http://192.168.100.18/src/client/assets/icon/riddle.png" height={50} width={50}/>
                 <small>riddle</small>
               </center>
             </CardContent>
@@ -314,7 +323,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("other")}>
               <center>
-                <img src="http://localhost:3000/src/client/assets/icon/other.png"height={50} width={50}/>
+                <img src="http://192.168.100.18/src/client/assets/icon/other.png"height={50} width={50}/>
                 <small> other</small>
               </center>
             </CardContent>
