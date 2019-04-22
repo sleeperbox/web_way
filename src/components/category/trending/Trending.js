@@ -111,7 +111,7 @@ export default class Trending extends Component {
                    <GridList cols={5} cellHeight={100} spacing={2}>
                     {users.map(user => (
                       
-                    <Card style={{margin: 20}}>
+                    <Card style={{margin: 20}} key={user._id}>
                         <CardContent>
                             <center>
                                 <Avatar src={"http://192.168.100.18/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>

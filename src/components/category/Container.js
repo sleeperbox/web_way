@@ -11,6 +11,7 @@ import Home from './home/Home';
 import TrendingIcon from '@material-ui/icons/TrendingUp';
 import Trending from './trending/Trending';
 import Profile from './profile/Profile';
+import ComputerGadget from './computer_gadget/ComputerGadget';
 
 function TabContainer(props) {
   return (
@@ -73,7 +74,7 @@ class Container extends React.Component {
           <Grid item xs sm={6} style={{height:'100%'}}>
               {value === 0 && <TabContainer><Trending/></TabContainer>}
               {value === 1 && <TabContainer><Home/></TabContainer>}
-              {value === 2 && <TabContainer>Komputer & gadget</TabContainer>}
+              {value === 2 && <TabContainer><ComputerGadget/></TabContainer>}
               {value === 3 && <TabContainer>Keluarga dan asmara</TabContainer>}
               {value === 4 && <TabContainer>Fakta & rumor</TabContainer>}
               {value === 5 && <TabContainer>Bisnis & Pekerjaan</TabContainer>}
