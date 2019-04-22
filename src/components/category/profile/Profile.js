@@ -50,34 +50,77 @@ export default class Profile extends Component {
             open: false,
             bottom: false,
         }
+        
     }
-
+    
     componentWillMount() {
-        axios({
-          method: "post",
-          url: "http://192.168.100.18:8080/api/profile",
-          headers: {
-            "Acces-Control-Allow-Origin": true,
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          data: {
-            email: this.state.email // This is the body part
-          }
-        }).then(result =>
-            this.setState({
-                username: result.data.username,
-                first_name: result.data.first_name,
-                last_name: result.data.last_name,
-                awards: result.data.awards,
-                total_friends: result.data.total_friends,
-                total_posts: result.data.total_posts,
-                total_thanks: result.data.total_thanks,
-                join_date: result.data.join_date,
-                followed_topic: result.data.tags,
-                foto: result.data.foto
-              }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
-        );
+        const { email } = this.state;
+        if(email == ""){
+            this.setState(state => {return{
+                email: localStorage.getItem('phone').slice(1, -1)   
+            };
+            }, () => axios({
+                method: "post",
+                url: "http://192.168.100.18:8080/api/profile",
+                headers: {
+                  "Acces-Control-Allow-Origin": true,
+                  "Content-Type": "application/json",
+                  Accept: "application/json"
+                },
+                data: {
+                    
+                  email: this.state.email  // This is the body part
+                  
+              }
+              }).then(result =>
+                  this.setState({
+                      username: result.data.username,
+                      first_name: result.data.first_name,
+                      last_name: result.data.last_name,
+                      awards: result.data.awards,
+                      total_friends: result.data.total_friends,
+                      total_posts: result.data.total_posts,
+                      total_thanks: result.data.total_thanks,
+                      join_date: result.data.join_date,
+                      followed_topic: result.data.tags,
+                      foto: result.data.foto
+                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+              ));
+            
+        }else{
+            axios({
+                method: "post",
+                url: "http://192.168.100.18:8080/api/profile",
+                headers: {
+                  "Acces-Control-Allow-Origin": true,
+                  "Content-Type": "application/json",
+                  Accept: "application/json"
+                },
+                data: {
+                    
+                  email: this.state.email  // This is the body part
+                  
+              }
+              }).then(result =>
+                  this.setState({
+                      username: result.data.username,
+                      first_name: result.data.first_name,
+                      last_name: result.data.last_name,
+                      awards: result.data.awards,
+                      total_friends: result.data.total_friends,
+                      total_posts: result.data.total_posts,
+                      total_thanks: result.data.total_thanks,
+                      join_date: result.data.join_date,
+                      followed_topic: result.data.tags,
+                      foto: result.data.foto
+                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+              );
+        
+        
+        console.log("test", this.state)
+        }
+
+            
     }
 
     handleClickOpen = () => {
@@ -139,7 +182,7 @@ export default class Profile extends Component {
                     <Avatar style={{background: "#EF7F85"}}>
                         <JoindateIcon />
                     </Avatar>
-                    <ListItemText primary="Join Date" secondary={join_date.slice(0, -4)} />
+                     {/* <ListItemText primary="Join Date" secondary={join_date.slice(0, -4)} /> */}
                 </ListItem>
             </List>
         </Grid>
