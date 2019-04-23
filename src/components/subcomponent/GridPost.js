@@ -57,7 +57,7 @@ export default class GridPost extends Component {
   categoryClicked(value){
     axios({
       method: "post",
-      url: "http://192.168.100.18:8080/api/posting/tag/limit",
+      url: "http://192.168.100.18:8080/api/posting/limit",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
