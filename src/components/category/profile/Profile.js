@@ -46,7 +46,7 @@ export default class Profile extends Component {
             foto: "",
             total_posts: 0,
             total_thanks: 0,
-            email: localStorage.getItem('email').slice(1, -1),
+            email: localStorage.getItem('email'),
             open: false,
             bottom: false,
         }
@@ -57,11 +57,11 @@ export default class Profile extends Component {
         const { email } = this.state;
         if(email == ""){
             this.setState(state => {return{
-                email: localStorage.getItem('phone').slice(1, -1)   
+                email: localStorage.getItem('phone')   
             };
             }, () => axios({
                 method: "post",
-                url: "http://192.168.100.18:8080/api/profile",
+                url: "https://api.aprizal.com/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export default class Profile extends Component {
         }else{
             axios({
                 method: "post",
-                url: "http://192.168.100.18:8080/api/profile",
+                url: "https://api.aprizal.com/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",
@@ -115,9 +115,6 @@ export default class Profile extends Component {
                       foto: result.data.foto
                     }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
               );
-        
-        
-        console.log("test", this.state)
         }
 
             
@@ -243,7 +240,7 @@ export default class Profile extends Component {
                         <Icon path={mdiSettings} size={0.8} color="#444" />
                     </Fab>
                     <center>
-                        <Avatar alt={this.state.username} src={"http://192.168.100.18/src/web-api/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
+                        <Avatar alt={this.state.username} src={"https://aprizal.com/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
                         <h2>{this.state.username}</h2>
                     </center>
                     <div>

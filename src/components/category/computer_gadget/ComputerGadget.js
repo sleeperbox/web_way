@@ -48,7 +48,7 @@ class ComputerGadget extends React.Component {
     super(props);
     this.state = {
       expanded: false,
-      email: localStorage.getItem("email").slice(1, -1),
+      email: localStorage.getItem("email"),
       posting: [],
       tgl: new Date().toDateString(),
       month: new Date().getMonth(),
@@ -68,7 +68,7 @@ class ComputerGadget extends React.Component {
   componentDidMount() {
     axios({
       method: "post",
-      url: "http://192.168.100.18:8080/api/posting/home/computer-gadget",
+      url: "https://api.aprizal.com/api/posting/home/computer-gadget",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -89,7 +89,7 @@ class ComputerGadget extends React.Component {
     if (this.state.thanks == 1) {
       axios({
         method: "post",
-        url: "http://192.168.100.18:8080/api/posting/home/computer-gadget",
+        url: "https://api.aprizal.com/api/posting/home/computer-gadget",
         headers: {
           "Acces-Control-Allow-Origin": true,
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ class ComputerGadget extends React.Component {
   givethanks(value, value2) {
     axios({
       method: "put",
-      url: "http://192.168.100.18:8080/api/posting/thanks/post/user",
+      url: "https://api.aprizal.com/api/posting/thanks/post/user",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ class ComputerGadget extends React.Component {
     }));
     axios({
       method: "POST",
-      url: "http://192.168.100.18:8080/api/comments",
+      url: "https://api.aprizal.com/api/comments",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -151,7 +151,7 @@ class ComputerGadget extends React.Component {
                       aria-label="Recipe"
                       className={classes.avatar}
                       src={
-                        "http://192.168.100.18/src/web-api/public/avatar/" +
+                        "https://aprizal.com/public/avatar/" +
                         data.foto
                       }
                     />
@@ -173,7 +173,7 @@ class ComputerGadget extends React.Component {
                 <CardMedia
                   className={classes.media}
                   image={
-                    "http://192.168.100.18/src/web-api/public/posting/foto/" +
+                    "https://aprizal.com/public/posting/foto/" +
                     data.fotocontent
                   }
                 />

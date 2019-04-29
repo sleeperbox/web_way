@@ -27,10 +27,10 @@ export default class Trending extends Component {
 
   componentWillMount() {
     axios
-      .post("http://192.168.100.18:8080/api/posting/trending")
+      .post("https://api.aprizal.com/api/posting/trending")
       .then(result => this.setState({ posts: result.data }));
     axios
-      .post("http://192.168.100.18:8080/api/user/trending")
+      .post("https://api.aprizal.com/api/user/trending")
       .then(result => this.setState({ users: result.data }));
   }
 
@@ -60,15 +60,15 @@ export default class Trending extends Component {
           ) : (
             <div>
               <GridList cellHeight={200} spacing={1} style={{marginTop: "15px"}}>
-                {posts.map(data => (
-                  <GridListTile key={data._id} cols={1} rows={1}>
+                {posts.map((data, index) => (
+                  <GridListTile key={index} cols={1} rows={1}>
                     {data.fotocontent == null ? (
                       <img 
                       src={"../../../public/images/default.png"} />
                     ) : (
                       <img
                         src={
-                          "http://192.168.100.18/src/web-api/public/posting/foto/" +
+                          "https://aprizal.com/public/posting/foto/" +
                           data.fotocontent
                         }
                       />
@@ -109,12 +109,12 @@ export default class Trending extends Component {
                 ) : (
                   <div style={{maxWidth: "100%"}}>
                    <GridList cols={5} cellHeight={100} spacing={2}>
-                    {users.map(user => (
+                    {users.map((user, index) => (
                       
-                    <Card style={{margin: 20}} key={user._id}>
+                    <Card style={{margin: 20}} key={index}>
                         <CardContent>
                             <center>
-                                <Avatar src={"http://192.168.100.18/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
+                                <Avatar src={"https://aprizal.com/public/avatar/" + user.foto} height={20} width={20}/>
                                 <br />
                                 <small>{"@" + user.username}</small>
                             </center>
