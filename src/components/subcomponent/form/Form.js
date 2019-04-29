@@ -111,9 +111,9 @@ class Form extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { isLogin } = this.state;
     if (isLogin === true) {
-      localStorage.setItem("email", JSON.stringify(this.state.email));
-      localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
-      localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
+      localStorage.setItem("email", this.state.email);
+      localStorage.setItem("phone", this.state.phone_number);
+      localStorage.setItem("auth", this.state.isLogin);
       window.location = "#/profile";
     }
   }

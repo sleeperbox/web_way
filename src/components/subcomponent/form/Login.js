@@ -69,7 +69,7 @@ export default class Login extends React.Component {
   handleSubmit() {
     axios({
       method: "POST",
-      url: "http://192.168.100.18:8080/api/login",
+      url: "https://api.aprizal.com/api/login",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
@@ -79,22 +79,25 @@ export default class Login extends React.Component {
         password: this.state.password
       }
     }).then(result =>
-      this.setState({
-        warning: result.data,
-        isLogin: result.data.auth,
-        token: result.data.token
-      })
+      console.log(result.data[0])
+      // this.setState({
+      //   warning: result.data[0],
+      //   isLogin: result.data[0].auth,
+      //   token: result.data[0].token
+      // })
+      
     );
   }
   componentDidUpdate() {
     const { isLogin } = this.state;
     if (isLogin === true) {
-      localStorage.setItem("email", JSON.stringify(this.state.email));
-      localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
-      localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
+      localStorage.setItem("email", (this.state.email));
+      localStorage.setItem("phone", (this.state.phone_number));
+      localStorage.setItem("auth", (this.state.isLogin));
       window.location = "#/profile";
     }
   }
+  
   // shouldComponentUpdate(newProps, newState){
   //   if(newState.isLogin || newState.warning || newState.kode){
   //     return true;
@@ -102,8 +105,9 @@ export default class Login extends React.Component {
   //     return false;
   //   }
   // }
+
   googleSignin() {
-    window.location = "http://192.168.100.18:8080/api/auth/google";
+    window.location = "https://api.aprizal.com/api/auth/google";
   }
 
   render() {
