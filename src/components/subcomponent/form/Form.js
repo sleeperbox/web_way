@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import axios from "axios";
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import Icon from "@mdi/react";
+import { mdiGooglePlus } from "@mdi/js";
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -18,48 +19,46 @@ function TabContainer(props) {
   );
 }
 
-
 TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 function LinkTab(props) {
-  return <Tab component="a" onClick={event => event.preventDefault()} {...props} />;
+  return (
+    <Tab component="a" onClick={event => event.preventDefault()} {...props} />
+  );
 }
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
+    backgroundColor: theme.palette.background.paper
+  }
 });
 
-const styles1 = theme => ({ 
+const styles1 = theme => ({
   error: {
-    background: 'red',
-    color: 'white'
+    background: "red",
+    color: "white"
   },
-  
+
   message: {
-    display: 'flex',
-    alignItems: 'center',
-  },
+    display: "flex",
+    alignItems: "center"
+  }
 });
 function MySnackbarContent(props) {
   const { classes, className, message, onClose, variant, ...other } = props;
 
   return (
     <SnackbarContent
-      
       aria-describedby="client-snackbar"
       message={
         <span id="client-snackbar" className={classes.message}>
           {message}
         </span>
       }
-      action={[
-        
-      ]}
+      action={[]}
       {...other}
     />
   );
@@ -69,25 +68,24 @@ MySnackbarContent.propTypes = {
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['error']).isRequired,
+  variant: PropTypes.oneOf(["error"]).isRequired
 };
 
 class Form extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-        value: 0,
-        email: "",
-        username: "",
-        first_name: "",
-        last_name: "",
-        password: "",
-        isLogin: "",
-        token: "",
-        warning: null,
-        phone_number: '',
-    }
+      value: 0,
+      email: "",
+      username: "",
+      first_name: "",
+      last_name: "",
+      password: "",
+      isLogin: "",
+      token: "",
+      warning: null,
+      phone_number: ""
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -103,7 +101,7 @@ class Form extends React.Component {
 
   componentDidMount() {
     const { isLogin } = this.state;
-    if(isLogin){
+    if (isLogin) {
       window.location = "#/profile";
     }
   }
@@ -112,6 +110,7 @@ class Form extends React.Component {
     const { isLogin } = this.state;
     if (isLogin === true) {
       localStorage.setItem("email", JSON.stringify(this.state.email));
+      localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
       localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
       window.location = "#/profile";
     }
@@ -121,16 +120,16 @@ class Form extends React.Component {
     let target = event.target;
     let value = target.value;
     let name = target.name;
-    
+
     this.setState({
       [name]: value
     });
   }
   handleSubmit() {
-    if(this.state.value === 0){
+    if (this.state.value === 0) {
       axios({
         method: "POST",
-        url: "http://localhost:8080/api/register/phone",
+        url: "http://192.168.100.18:8080/api/register/phone",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -140,7 +139,7 @@ class Form extends React.Component {
           username: this.state.username,
           first_name: this.state.first_name,
           last_name: this.state.last_name,
-          password: this.state.password,
+          password: this.state.password
         }
       }).then(result =>
         this.setState({
@@ -148,11 +147,11 @@ class Form extends React.Component {
           isLogin: result.data.auth,
           token: result.data.token
         })
-      )
+      );
     } else {
       axios({
         method: "POST",
-        url: "http://localhost:8080/api/register",
+        url: "http://192.168.100.18:8080/api/register",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -162,7 +161,7 @@ class Form extends React.Component {
           username: this.state.username,
           first_name: this.state.first_name,
           last_name: this.state.last_name,
-          password: this.state.password,
+          password: this.state.password
         }
       }).then(result =>
         this.setState({
@@ -170,79 +169,85 @@ class Form extends React.Component {
           isLogin: result.data.auth,
           token: result.data.token
         })
-      )
+      );
     }
-    
   }
   googleSignin() {
-    window.location = "http://localhost:8080/api/auth/google"
+    window.location = "http://192.168.100.18:8080/api/auth/google";
   }
   render() {
     const btnColor = {
-      background: '#dd5044',
-      color: '#ffffff',
-      width: '100%'
-    }
+      background: "#dd5044",
+      color: "#ffffff",
+      width: "100%"
+    };
     const btnWidth = {
-      width: '100%'
-    }
+      width: "100%"
+    };
     const { classes } = this.props;
     const { value } = this.state;
     const { warning } = this.state;
     const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
     return (
-      
       <ValidatorForm onSubmit={this.handleSubmit}>
-       
-      {warning === 1 ? (
-        <MySnackbarContentWrapper
-          style={{background: '#ffa000'}}
-          variant="error"
-          className={classes.margin}
-          message="Username/Email Has Been Used !"
-        />
-      ) : null}
-      <br />
-        <Button variant="contained" className={classes.button} style={btnColor}  onClick={this.googleSignin.bind(this)}>
-          Sign in with google         
+        {warning === 1 ? (
+          <MySnackbarContentWrapper
+            style={{ background: "#ffa000" }}
+            variant="error"
+            className={classes.margin}
+            message="Username/Email Has Been Used !"
+          />
+        ) : null}
+        <br />
+        <Button
+          variant="contained"
+          style={btnColor}
+          onClick={this.googleSignin.bind(this)}
+        >
+          <Icon path={mdiGooglePlus} size={1} color="white" />
+          <span>&nbsp;</span> sign in with google
         </Button>
-              <br />
-              <br />
-              <div className={classes.root}>
+        <br />
+        <br />
+        <div className={classes.root}>
           <AppBar position="static" color="default">
-            <Tabs 
-              variant="fullWidth" 
-              value={value} 
+            <Tabs
+              variant="fullWidth"
+              value={value}
               required={true}
-              onChange={this.moveTab} 
+              onChange={this.moveTab}
               indicatorColor="primary"
               textColor="primary"
             >
-              <LinkTab label="Phone" classes={{ root: classes.tabRoot }}/>
-              <LinkTab label="email" classes={{ root: classes.tabRoot }}/>
+              <LinkTab label="Phone" classes={{ root: classes.tabRoot }} />
+              <LinkTab label="email" classes={{ root: classes.tabRoot }} />
             </Tabs>
           </AppBar>
-          {value === 0 && <TextValidator
-            label="Phone"
-            className={classes.textField}
-            type="number"
-            margin="normal"
-            fullWidth={true}
-            required={true}
-            name="phone_number"
-            placeholder="082316xxxxx"
-            onChange={this.handleChange}
-          />}
-          {value === 1 && <TextValidator
-            label="Email"
-            fullWidth={true}
-            required={true}
-            className={classes.textField}
-            type="email"
-            margin="normal"
-            name="email"
-            onChange={this.handleChange}
-          />}
+          {value === 0 && (
+            <TextValidator
+              label="Phone"
+              className={classes.textField}
+              type="number"
+              margin="normal"
+              fullWidth={true}
+              required={true}
+              name="phone_number"
+              placeholder="082316xxxxx"
+              onChange={this.handleChange}
+            />
+          )}
+          {value === 1 && (
+            <TextValidator
+              label="Email"
+              fullWidth={true}
+              required={true}
+              className={classes.textField}
+              type="email"
+              margin="normal"
+              name="email"
+              onChange={this.handleChange}
+            />
+          )}
         </div>
         <TextValidator
           label="Username"
@@ -254,7 +259,7 @@ class Form extends React.Component {
           name="username"
           onChange={this.handleChange}
         />
-         <TextValidator
+        <TextValidator
           label="First Name"
           required={true}
           className={classes.textField}
@@ -274,7 +279,7 @@ class Form extends React.Component {
           name="last_name"
           onChange={this.handleChange}
         />
-          <TextValidator          
+        <TextValidator
           label="Password"
           className={classes.textField}
           type="password"
@@ -284,23 +289,31 @@ class Form extends React.Component {
           name="password"
           onChange={this.handleChange}
         />
-        
-          <br />
-          <br />
-          <Button variant="contained" type="submit" color="primary" className={classes.button} style={btnWidth}>
-            Sign Up
+        <br />
+        <br />
+        <Button
+          variant="contained"
+          type="submit"
+          color="primary"
+          className={classes.button}
+          style={btnWidth}
+        >
+          Sign Up
         </Button>
-        Already signed up?&nbsp;<Button onClick={this.props.logins.bind(this)}><u><b>Login Here</b></u></Button>
-                &nbsp;instead.
+        Already signed up?&nbsp;
+        <Button onClick={this.props.logins.bind(this)}>
+          <u>
+            <b>Login Here</b>
+          </u>
+        </Button>
+        &nbsp;instead.
       </ValidatorForm>
-
-      
     );
   }
 }
 
 Form.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Form);

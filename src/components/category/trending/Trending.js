@@ -27,10 +27,10 @@ export default class Trending extends Component {
 
   componentWillMount() {
     axios
-      .post("http://localhost:8080/api/posting/trending")
+      .post("http://192.168.100.18:8080/api/posting/trending")
       .then(result => this.setState({ posts: result.data }));
     axios
-      .post("http://localhost:8080/api/user/trending")
+      .post("http://192.168.100.18:8080/api/user/trending")
       .then(result => this.setState({ users: result.data }));
   }
 
@@ -50,9 +50,9 @@ export default class Trending extends Component {
   trendingPost() {
     const { posts } = this.state;
     return (
-      <div style={{marginTop: 15}}>
-      <div style={{padding: 15, margin: 2}}>
-      <p style={{ fontSize: "1.5em", margin: 5}}>trending now</p>
+      <div>
+      <div style={{margin: -10}}>
+     
           {posts.length === 0 ? (
             <div>
               <p>No Trending Content For Today...</p>
@@ -68,7 +68,7 @@ export default class Trending extends Component {
                     ) : (
                       <img
                         src={
-                          "http://localhost:3000/src/web-api/public/posting/foto/" +
+                          "http://192.168.100.18/src/web-api/public/posting/foto/" +
                           data.fotocontent
                         }
                       />
@@ -111,16 +111,15 @@ export default class Trending extends Component {
                    <GridList cols={5} cellHeight={100} spacing={2}>
                     {users.map(user => (
                       
-                    <Card style={{margin: 20}}>
+                    <Card style={{margin: 20}} key={user._id}>
                         <CardContent>
                             <center>
-                                <Avatar src={"http://localhost:3000/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
+                                <Avatar src={"http://192.168.100.18/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
                                 <br />
                                 <small>{"@" + user.username}</small>
                             </center>
                         </CardContent>
                     </Card>
-                  
                     ))}
                     </GridList>
                     </div>

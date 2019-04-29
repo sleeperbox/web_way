@@ -5,17 +5,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Grid from '@material-ui/core/Grid';
 import Home from './home/Home';
 import TrendingIcon from '@material-ui/icons/TrendingUp';
 import Trending from './trending/Trending';
-import Button from '@material-ui/core/Button';
+import Profile from './profile/Profile';
+import ComputerGadget from './computer_gadget/ComputerGadget';
 
 function TabContainer(props) {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div" style={{ padding: 8 }}>
       {props.children}
     </Typography>
   );
@@ -40,19 +40,14 @@ class Container extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-  logout() {
-    localStorage.removeItem('email')
-    localStorage.removeItem('auth')
-    localStorage.removeItem('menu')
-    window.location='#/login';
-  }
+  
   render() {
     const { classes } = this.props;
     const { value } = this.state;
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar position="sticky" color="default">
         <Tabs
           value={value}
           onChange={this.handleChange}
@@ -61,7 +56,7 @@ class Container extends React.Component {
           variant="scrollable"
           scrollButtons="auto"
         >
-            <Tab icon={<TrendingIcon/>}/>
+            <Tab icon={<TrendingIcon/>} style={{minWidth: 50}}/>
             <Tab label="Home" />
             <Tab label="Komputer & gadget" />
             <Tab label="Keluarga & Asmara" />
@@ -75,11 +70,11 @@ class Container extends React.Component {
         </AppBar>
         <br />
         <br />
-        <Grid container>
-          <Grid item xs sm={8}>
-              {value === 0 && <Trending/>}
+        <Grid container justify="center">
+          <Grid item xs sm={6} style={{height:'100%'}}>
+              {value === 0 && <TabContainer><Trending/></TabContainer>}
               {value === 1 && <TabContainer><Home/></TabContainer>}
-              {value === 2 && <TabContainer>Komputer & gadget</TabContainer>}
+              {value === 2 && <TabContainer><ComputerGadget/></TabContainer>}
               {value === 3 && <TabContainer>Keluarga dan asmara</TabContainer>}
               {value === 4 && <TabContainer>Fakta & rumor</TabContainer>}
               {value === 5 && <TabContainer>Bisnis & Pekerjaan</TabContainer>}
@@ -88,9 +83,9 @@ class Container extends React.Component {
               {value === 8 && <TabContainer>Riddless</TabContainer>}    
               {value === 9 && <TabContainer>Lainnya</TabContainer>}    
           </Grid>
-          <Grid item xs sm={4}>
+          <Grid item xs sm={4} style={{height:'100%'}}>
               <TabContainer>
-              <Button onClick={this.logout.bind(this)} variant="contained" color="primary">LOGOUT</Button>
+                <Profile/>
               </TabContainer>
           </Grid>
       </Grid>
