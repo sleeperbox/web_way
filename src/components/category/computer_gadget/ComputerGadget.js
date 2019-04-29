@@ -141,9 +141,15 @@ class ComputerGadget extends React.Component {
 
     return (
       <div>
-        {posting.map((data, index) => {
+        {posting.length === 0 ? (
+          <div>
+            <p>No post yet</p>
+          </div>
+        ) : (
+          <div>
+             {posting.map((data, index) => {
           return (
-            <div key={data._id}>
+            <div key={index}>
               <Card className={classes.card}>
                 <CardHeader
                   avatar={
@@ -205,7 +211,7 @@ class ComputerGadget extends React.Component {
                       {commentByPostId.map((a, index) => {
                             return (
                        
-                                <Typography key={a._id}>
+                                <Typography key={index}>
                                   {a.comment}   
                                 </Typography>
                              
@@ -219,6 +225,9 @@ class ComputerGadget extends React.Component {
             </div>
           );
         })}
+          </div>
+        )}
+       
       </div>
     );
   }

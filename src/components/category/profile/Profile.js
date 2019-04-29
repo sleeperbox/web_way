@@ -84,7 +84,7 @@ export default class Profile extends Component {
                       join_date: result.data.join_date,
                       followed_topic: result.data.tags,
                       foto: result.data.foto
-                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+                    })
               ));
             
         }else{
@@ -113,7 +113,7 @@ export default class Profile extends Component {
                       join_date: result.data.join_date,
                       followed_topic: result.data.tags,
                       foto: result.data.foto
-                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+                    })
               );
         }
 

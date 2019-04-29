@@ -33,9 +33,26 @@ const styles = theme => ({
 });
 
 class Container extends React.Component {
-  state = {
-    value: 1,
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      value: 1,
+      isLogin: "",
+      email: "",
+    }
+  }
+  componentWillMount(){
+    this.setState({
+      email : localStorage.getItem("email"),
+      isLogin: localStorage.getItem("auth")
+    })
+  }
+
+  componentDidMount(){
+      if(this.state.isLogin != true){
+        window.location = '#login'
+      }
+  }
 
   handleChange = (event, value) => {
     this.setState({ value });
