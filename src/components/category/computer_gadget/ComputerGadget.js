@@ -11,13 +11,15 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteIconBorder from "@material-ui/icons/favoriteborder";
-import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import axios from "axios";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import Skeleton from 'react-loading-skeleton';
+import Skeleton from "react-loading-skeleton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 const styles = theme => ({
   card: {
@@ -52,7 +54,8 @@ class ComputerGadget extends React.Component {
       waktu: [],
       thanks: 0,
       kode: 0,
-      isLoading: true
+      isLoading: true,
+      isLoadingComment: true
     };
     this.handleExpandClick = this.handleExpandClick.bind(this);
   }
@@ -65,7 +68,9 @@ class ComputerGadget extends React.Component {
         "Content-Type": "application/json",
         Accept: "application/json"
       }
-    }).then(result => this.setState({ posting: result.data, isLoading: false }));
+    }).then(result =>
+      this.setState({ posting: result.data, isLoading: false })
+    );
   }
 
   shouldComponentUpdate(newProps, newState) {
@@ -86,7 +91,9 @@ class ComputerGadget extends React.Component {
           "Content-Type": "application/json",
           Accept: "application/json"
         }
-      }).then(result => this.setState({ posting: result.data, thanks: 0, isLoading: false }));
+      }).then(result =>
+        this.setState({ posting: result.data, thanks: 0, isLoading: false })
+      );
     }
   }
 
@@ -108,7 +115,8 @@ class ComputerGadget extends React.Component {
       this.setState({ thanks: 1, kode: result.data.kode.kode })
     );
   }
-  handleExpandClick (id_post) {
+
+  handleExpandClick(id_post) {
     axios({
       method: "POST",
       url: "http://192.168.100.33:8080/api/comments",
@@ -120,89 +128,105 @@ class ComputerGadget extends React.Component {
       data: {
         id_posts: id_post
       }
-    }).then(result => this.setState({ commentByPostId: result.data }));
-  };
+    }).then(result =>
+      this.setState({ commentByPostId: result.data, isLoadingComment: false })
+    );
+  }
 
   render() {
     const { classes } = this.props;
-    const { posting, commentByPostId, isLoading } = this.state;
+    const {
+      posting,
+      commentByPostId,
+      isLoading,
+      isLoadingComment
+    } = this.state;
 
     return (
       <div>
-        {isLoading ? (this.skeletonPosting()) : posting.length === 0 ? (
+        {isLoading ? (
+          this.skeletonPosting()
+        ) : posting.length === 0 ? (
           <div>
             <p>No post yet..</p>
           </div>
         ) : (
           <div>
             {posting.map((data, index) => {
-          return (
-            <div key={data._id}>
-              <Card className={classes.card}>
-                <CardHeader
-                  avatar={
-                    <Avatar
-                      className={classes.avatar}
-                      src={
-                        "http://aprizal.com/public/avatar" +
-                        data.foto
+              return (
+                <div key={data._id}>
+                  <Card className={classes.card}>
+                    <CardHeader
+                      avatar={
+                        <Avatar
+                          className={classes.avatar}
+                          src={"http://aprizal.com/public/avatar/" + data.foto}
+                        />
+                      }
+                      title={data.username}
+                      subheader={
+                        data.date.slice(11) == this.state.year
+                          ? data.date.slice(4, -5) == this.state.datemonth
+                            ? data.jam == this.state.jam
+                              ? data.menit == this.state.menit
+                                ? "Now"
+                                : this.state.menit - data.menit + " m ago"
+                              : this.state.jam - data.jam + " h ago"
+                            : data.date.slice(4, -5)
+                          : data.date.slice(4)
                       }
                     />
-                  }
-                  title={data.username}
-                  subheader={
-                    data.date.slice(11) == this.state.year
-                      ? data.date.slice(4, -5) == this.state.datemonth
-                        ? data.jam == this.state.jam
-                          ? data.menit == this.state.menit
-                            ? "Now"
-                            : this.state.menit - data.menit + " m ago"
-                          : this.state.jam - data.jam + " h ago"
-                        : data.date.slice(4, -5)
-                      : data.date.slice(4)
-                  }
-                />
-                {data.fotocontent === null ? (
-                  <div>
-                    <CardMedia
-                      className={classes.media}
-                      image={
-                        "http://aprizal.com/public/icon/icon/komp.png"
-                      }
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    <CardMedia
-                      className={classes.media}
-                      image={
-                        "http://aprizal.com/public/posting/foto/" +
-                        data.fotocontent
-                      }
-                    />
-                  </div>
-                )}
+                    {data.fotocontent === null ? (
+                      <div>
+                        <CardMedia
+                          className={classes.media}
+                          image={"http://aprizal.com/public/icon/icon/komp.png"}
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <CardMedia
+                          className={classes.media}
+                          image={
+                            "http://aprizal.com/public/posting/foto/" +
+                            data.fotocontent
+                          }
+                        />
+                      </div>
+                    )}
                     <CardContent>
                       <Typography component="p">
                         <b>{data.content}</b>
                       </Typography>
                     </CardContent>
-                    <CardActions className={classes.actions} disableActionSpacing>
+                    <CardActions
+                      className={classes.actions}
+                      disableActionSpacing
+                    >
                       <IconButton aria-label="Thanks">
                         {this.state.kode == 1 ? (
                           <div>
-                           <small>
-                              <FavoriteIconBorder onClick={() => this.givethanks(data._id, data.username)}/><b style={{fontSize: '15px'}}>{data.thanks}</b>
+                            <small>
+                              <FavoriteIconBorder
+                                onClick={() =>
+                                  this.givethanks(data._id, data.username)
+                                }
+                              />
+                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
                             </small>
                           </div>
                         ) : (
                           <div>
                             <center>
-                              <FavoriteIcon onClick={() => this.givethanks(data._id, data.username)}/> <b style={{fontSize: '15px'}}>{data.thanks}</b>
+                              <FavoriteIcon
+                                onClick={() =>
+                                  this.givethanks(data._id, data.username)
+                                }
+                              />{" "}
+                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
                             </center>
                           </div>
                         )}
-                        
                       </IconButton>
                     </CardActions>
                     <ExpansionPanel
@@ -210,18 +234,40 @@ class ComputerGadget extends React.Component {
                     >
                       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>
-                        {data.comment} Comments
+                          {data.comment} Comments
                         </Typography>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
                         <CardContent>
-                          {commentByPostId.map((a, index) => {
-                            return (
-                              <Typography key={a._id}>
-                                {a.comment} 
-                              </Typography>
-                            );
-                          })}
+                          {isLoadingComment ? (
+                            this.skeletonComment()
+                          ) : commentByPostId.length === 0 ? (
+                            <p>No Comment yet.</p>
+                          ) : (
+                            commentByPostId.map((a, index) => {
+                              return (
+                                <List key={a._id}>
+                                  <ListItem>
+                                    <Avatar
+                                      className={classes.avatar}
+                                      src={
+                                        "http://aprizal.com/public/avatar/" +
+                                        a.foto
+                                      }
+                                    />
+                                    <ListItemText
+                                      primary={a.username}
+                                      secondary={
+                                        <Typography component="p">
+                                          {a.comment}
+                                        </Typography>
+                                      }
+                                    />
+                                  </ListItem>
+                                </List>
+                              );
+                            })
+                          )}
                         </CardContent>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -235,28 +281,26 @@ class ComputerGadget extends React.Component {
       </div>
     );
   }
-  skeletonPosting (){
+  skeletonPosting() {
     const { classes } = this.props;
     return (
-
       <Card className={classes.card}>
-        <Skeleton height={600}
-          avatar={
-            <Avatar aria-label="Recipe">
-            
-            </Avatar>
-          }
-          action={
-            <IconButton>
-              
-            </IconButton>
-          }
-          
+        <Skeleton
+          height={600}
+          avatar={<Avatar aria-label="Recipe" />}
+          action={<IconButton />}
         />
-
-        
       </Card>
-    )
+    );
+  }
+
+  skeletonComment() {
+    const { classes } = this.props;
+    return (
+      <List>
+        <Skeleton height={100}  avatar={<Avatar aria-label="Recipe" />} />
+      </List>
+    );
   }
 }
 
