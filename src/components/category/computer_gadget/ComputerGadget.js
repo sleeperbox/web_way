@@ -17,6 +17,7 @@ import axios from "axios";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import Skeleton from 'react-loading-skeleton';
 
 const styles = theme => ({
   card: {
@@ -51,6 +52,7 @@ class ComputerGadget extends React.Component {
       waktu: [],
       thanks: 0,
       kode: 0,
+      isLoading: true
     };
     this.handleExpandClick = this.handleExpandClick.bind(this);
   }
@@ -63,7 +65,7 @@ class ComputerGadget extends React.Component {
         "Content-Type": "application/json",
         Accept: "application/json"
       }
-    }).then(result => this.setState({ posting: result.data }));
+    }).then(result => this.setState({ posting: result.data, isLoading: false }));
   }
 
   shouldComponentUpdate(newProps, newState) {
@@ -84,7 +86,7 @@ class ComputerGadget extends React.Component {
           "Content-Type": "application/json",
           Accept: "application/json"
         }
-      }).then(result => this.setState({ posting: result.data, thanks: 0 }));
+      }).then(result => this.setState({ posting: result.data, thanks: 0, isLoading: false }));
     }
   }
 
@@ -123,11 +125,11 @@ class ComputerGadget extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { posting, commentByPostId } = this.state;
+    const { posting, commentByPostId, isLoading } = this.state;
 
     return (
       <div>
-        {posting.length === 0 ? (
+        {isLoading ? (this.skeletonPosting()) : posting.length === 0 ? (
           <div>
             <p>No post yet..</p>
           </div>
@@ -232,6 +234,29 @@ class ComputerGadget extends React.Component {
         )}
       </div>
     );
+  }
+  skeletonPosting (){
+    const { classes } = this.props;
+    return (
+
+      <Card className={classes.card}>
+        <Skeleton height={600}
+          avatar={
+            <Avatar aria-label="Recipe">
+            
+            </Avatar>
+          }
+          action={
+            <IconButton>
+              
+            </IconButton>
+          }
+          
+        />
+
+        
+      </Card>
+    )
   }
 }
 
