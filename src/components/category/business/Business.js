@@ -36,7 +36,7 @@ const styles = theme => ({
   }
 });
 
-class ComputerGadget extends React.Component {
+class Business extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,7 +63,7 @@ class ComputerGadget extends React.Component {
   componentDidMount() {
     axios({
       method: "post",
-      url: "http://192.168.100.33:8080/api/posting/home/computer-gadget",
+      url: "http://192.168.100.33:8080/api/posting/home/bussiness-work",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ class ComputerGadget extends React.Component {
     if (this.state.thanks == 1) {
       axios({
         method: "post",
-        url: "http://192.168.100.33:8080/api/posting/home/computer-gadget",
+        url: "http://192.168.100.33:8080/api/posting/home/bussiness-work",
         headers: {
           "Acces-Control-Allow-Origin": true,
           "Content-Type": "application/json",
@@ -330,8 +330,8 @@ class ComputerGadget extends React.Component {
   }
 }
 
-ComputerGadget.propTypes = {
+Business.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ComputerGadget);
+export default withStyles(styles)(Business);

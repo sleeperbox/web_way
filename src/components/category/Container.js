@@ -12,6 +12,15 @@ import TrendingIcon from '@material-ui/icons/TrendingUp';
 import Trending from './trending/Trending';
 import Profile from './profile/Profile';
 import ComputerGadget from './computer_gadget/ComputerGadget';
+import FactRumor from './fact_rumor/FactRumor';
+import FamilyLove from './family_love/FamilyLove';
+import Business from './business/Business';
+import Fashion from './fashion/Fashion';
+import Riddles from './riddles/Riddles';
+import Quotes from './quotes/Quotes';
+import Other from './other/Other';
+
+
 
 function TabContainer(props) {
   return (
@@ -75,13 +84,13 @@ class Container extends React.Component {
               {value === 0 && <TabContainer><Trending/></TabContainer>}
               {value === 1 && <TabContainer><Home/></TabContainer>}
               {value === 2 && <TabContainer><ComputerGadget/></TabContainer>}
-              {value === 3 && <TabContainer>Family and Love</TabContainer>}
-              {value === 4 && <TabContainer>Fact and Rumor</TabContainer>}
-              {value === 5 && <TabContainer>Bussines</TabContainer>}
-              {value === 6 && <TabContainer>Fashion</TabContainer>}
-              {value === 7 && <TabContainer>Quotes</TabContainer>} 
-              {value === 8 && <TabContainer>Riddles</TabContainer>}    
-              {value === 9 && <TabContainer>Other</TabContainer>}    
+              {value === 3 && <TabContainer><FamilyLove/></TabContainer>}
+              {value === 4 && <TabContainer><FactRumor/></TabContainer>}
+              {value === 5 && <TabContainer><Business/></TabContainer>}
+              {value === 6 && <TabContainer><Fashion/></TabContainer>}
+              {value === 7 && <TabContainer><Quotes/></TabContainer>} 
+              {value === 8 && <TabContainer><Riddles/></TabContainer>}    
+              {value === 9 && <TabContainer><Other/></TabContainer>}    
           </Grid>
           <Grid item xs sm={4} style={{height:'100%'}}>
               <TabContainer>
