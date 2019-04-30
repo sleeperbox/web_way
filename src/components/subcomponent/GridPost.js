@@ -15,6 +15,7 @@ import Chip from '@material-ui/core/Chip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from 'react-loading-skeleton';
 import axios from "axios";
 
 export default class GridPost extends Component {
@@ -25,9 +26,11 @@ export default class GridPost extends Component {
       posts: [],
       users: [],
       postsFromCategory: [],
+      isLoading: true,
       open: false,
       openModal: false
     };
+    this.generateSkeleton = this.generateSkeleton.bind(this);
   }
 
   handleChange(value) {
@@ -48,7 +51,7 @@ export default class GridPost extends Component {
   componentWillMount() {
     axios
       .post("http://192.168.100.33:8080/api/posting/trending")
-      .then(result => this.setState({ posts: result.data }));
+      .then(result => this.setState({ posts: result.data, isLoading: false }));
     axios
       .post("http://192.168.100.33:8080/api/user/trending")
       .then(result => this.setState({ users: result.data }));
@@ -76,7 +79,7 @@ export default class GridPost extends Component {
    return postsFromCategory.map(data => (
      <div key={data._id}>
      <Chip
-       avatar={<Avatar alt="Natacha" src={"http://192.168.100.33/src/web-api/public/avatar/" + data.foto} />}
+       avatar={<Avatar alt="Natacha" src={"http://aprizal.com/public/avatar/" + data.foto} />}
        label={<b>@{data.username}</b>}
      /> <span style={{fontSize: 11, float: "right"}}><b>at {data.jam}:{data.menit}</b></span>
      <br/>
@@ -172,6 +175,27 @@ export default class GridPost extends Component {
       </div>
   }
 
+  generateSkeleton() {
+    const { posts } = this.state
+    return(
+        <GridList cellHeight={200} spacing={2 } style={{marginTop: "15px"}}>
+          <GridListTile cols={1} rows={1}>
+            <Skeleton height={200} width={310}/>
+          </GridListTile>
+          <GridListTile cols={1} rows={1}>
+            <Skeleton height={200} width={310}/>
+          </GridListTile>
+          <GridListTile cols={1} rows={1}>
+            <Skeleton height={200} width={310}/>
+          </GridListTile>
+          <GridListTile cols={1} rows={1}>
+            <Skeleton height={200} width={310}/>
+          </GridListTile>
+          
+      </GridList>      
+    );
+  }  
+
   render() {
     const { open, openModal } = this.state;
     return (
@@ -188,12 +212,14 @@ export default class GridPost extends Component {
   }
 
   trendingPost() {
-    const { posts } = this.state;
+    const { posts, isLoading } = this.state;
     return (
       <div style={{marginTop: 15}}>
       <div style={{padding: 15, margin: 2}}>
       <p style={{ fontSize: "1.5em", margin: 5}}>trending now</p>
-          {posts.length === 0 ? (
+          
+          {isLoading ? (this.generateSkeleton()
+          ) : posts.length === 0 ? (
             <div>
               <p>No Trending Content For Today...</p>
             </div>
@@ -251,7 +277,7 @@ export default class GridPost extends Component {
             <Chip
                 onClick={this.handleClickOpen}
                 key={user._id}
-                avatar={<Avatar alt="Natacha" src={"http://192.168.100.33/src/web-api/public/avatar/" + user.foto} />}
+                avatar={<Avatar alt="Natacha" src={"http://aprizal.com/public/avatar/" + user.foto} />}
                 label={"@" + user.username}
                 href="/profile"
                 clickable
@@ -275,7 +301,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("business-work")}>
               <center>
-                <img src="http://192.168.100.33/src/client/assets/icon/bisnis.png" height={50} width={50}/>
+                <img src="http://aprizal.com/public/icon/icon/bisnis.png" height={50} width={50}/>
                 <small>business</small>
               </center>
             </CardContent>
@@ -283,7 +309,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("fact-rumour")}>
               <center>
-                <img src="http://192.168.100.33/src/client/assets/icon/f&r.png" height={50} width={50}/>
+                <img src="http://aprizal.com/public/icon/icon/f&r.png" height={50} width={50}/>
                 <small>fact&amp;rumor</small>
               </center>
             </CardContent>
@@ -291,7 +317,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("fashion-lifestyle")}>
               <center>
-                <img src="http://192.168.100.33/src/client/assets/icon/fashion.png" height={50} width={50}/>
+                <img src="http://aprizal.com/public/icon/icon/fashion.png" height={50} width={50}/>
                 <small>fashion</small>
               </center>
             </CardContent>
@@ -299,7 +325,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("computer-gadget")}>
               <center>
-                <img src="http://192.168.100.33/src/client/assets/icon/komp.png" height={50} width={50}/>
+                <img src="http://aprizal.com/public/icon/icon/komp.png" height={50} width={50}/>
                 <small>com&amp;gadget</small>
               </center>
             </CardContent>
@@ -307,7 +333,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("family-love")}>
               <center>
-                <img src="http://192.168.100.33/src/client/assets/icon/family.png" height={50} width={50}/>
+                <img src="http://aprizal.com/public/icon/icon/family.png" height={50} width={50}/>
                 <small>fams&amp;love</small>
               </center>
             </CardContent>
@@ -315,7 +341,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("riddles")}>
               <center>
-                <img src="http://192.168.100.33/src/client/assets/icon/riddle.png" height={50} width={50}/>
+                <img src="http://aprizal.com/public/icon/icon/riddle.png" height={50} width={50}/>
                 <small>riddle</small>
               </center>
             </CardContent>
@@ -323,7 +349,7 @@ export default class GridPost extends Component {
           <Card style={{margin: 5}}>
             <CardContent onClick={() => this.categoryClicked("other")}>
               <center>
-                <img src="http://192.168.100.33/src/client/assets/icon/other.png"height={50} width={50}/>
+                <img src="http://aprizal.com/public/icon/icon/other.png"height={50} width={50}/>
                 <small> other</small>
               </center>
             </CardContent>
