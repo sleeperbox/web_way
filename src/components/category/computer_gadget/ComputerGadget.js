@@ -55,9 +55,10 @@ class ComputerGadget extends React.Component {
       thanks: 0,
       kode: 0,
       isLoading: true,
-      isLoadingComment: true
+      isLoadingComment: true,
+      expanded: null
     };
-    this.handleExpandClick = this.handleExpandClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     axios({
@@ -116,22 +117,25 @@ class ComputerGadget extends React.Component {
     );
   }
 
-  handleExpandClick(id_post) {
+  handleChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false,
+    });
     axios({
-      method: "POST",
-      url: "http://192.168.100.33:8080/api/comments",
-      headers: {
-        "Acces-Control-Allow-Origin": true,
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      data: {
-        id_posts: id_post
-      }
-    }).then(result =>
-      this.setState({ commentByPostId: result.data, isLoadingComment: false })
-    );
-  }
+          method: "POST",
+          url: "http://192.168.100.33:8080/api/comments",
+          headers: {
+            "Acces-Control-Allow-Origin": true,
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          data: {
+            id_posts: panel
+          }
+        }).then(result =>
+          this.setState({ commentByPostId: result.data, isLoadingComment: false })
+        );
+  };
 
   render() {
     const { classes } = this.props;
@@ -139,7 +143,8 @@ class ComputerGadget extends React.Component {
       posting,
       commentByPostId,
       isLoading,
-      isLoadingComment
+      isLoadingComment,
+      expanded
     } = this.state;
 
     return (
@@ -195,7 +200,17 @@ class ComputerGadget extends React.Component {
                       </div>
                     )}
                     <CardContent>
-                      <Typography component="p">
+                      <Typography
+                        component="p"
+                        style={{
+                          whiteSpace: "-moz-pre-wrap",
+                          whiteSpace: "-moz-pre-wrap !important",
+                          whiteSpace: "pre-wrap",
+                          whiteSpace: "-webkit-pre-wrap",
+                          wordBreak: "break-all",
+                          whiteSpace: "normal"
+                        }}
+                      >
                         <b>{data.content}</b>
                       </Typography>
                     </CardContent>
@@ -229,9 +244,8 @@ class ComputerGadget extends React.Component {
                         )}
                       </IconButton>
                     </CardActions>
-                    <ExpansionPanel
-                      onClick={() => this.handleExpandClick(data.id_posts)}
-                    >
+                    <ExpansionPanel expanded={expanded === data.id_posts} onChange={this.handleChange(data.id_posts)}>
+                    
                       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>
                           {data.comment} Comments
@@ -258,7 +272,18 @@ class ComputerGadget extends React.Component {
                                     <ListItemText
                                       primary={a.username}
                                       secondary={
-                                        <Typography component="p">
+                                        <Typography
+                                          component="p"
+                                          style={{
+                                            whiteSpace: "-moz-pre-wrap",
+                                            whiteSpace:
+                                              "-moz-pre-wrap !important",
+                                            whiteSpace: "pre-wrap",
+                                            whiteSpace: "-webkit-pre-wrap",
+                                            wordBreak: "break-all",
+                                            whiteSpace: "normal"
+                                          }}
+                                        >
                                           {a.comment}
                                         </Typography>
                                       }
@@ -298,7 +323,7 @@ class ComputerGadget extends React.Component {
     const { classes } = this.props;
     return (
       <List>
-        <Skeleton height={100}  avatar={<Avatar aria-label="Recipe" />} />
+        <Skeleton height={90} avatar={<Avatar aria-label="Recipe" />} />
       </List>
     );
   }
