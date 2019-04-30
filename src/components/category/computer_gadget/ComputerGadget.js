@@ -189,23 +189,18 @@ class ComputerGadget extends React.Component {
                       <IconButton aria-label="Thanks">
                         {this.state.kode == 1 ? (
                           <div>
-                            <small>
-                              <FavoriteIconBorder onClick={() => this.givethanks(data._id, data.username)}> {data.thanks}
-                              </FavoriteIconBorder>
+                           <small>
+                              <FavoriteIconBorder onClick={() => this.givethanks(data._id, data.username)}/><b style={{fontSize: '15px'}}>{data.thanks}</b>
                             </small>
                           </div>
                         ) : (
                           <div>
-                            <small>
-                              <FavoriteIcon onClick={() => this.givethanks(data._id, data.username)}> {data.thanks}
-                              </FavoriteIcon>
-                            </small>
+                            <center>
+                              <FavoriteIcon onClick={() => this.givethanks(data._id, data.username)}/> <b style={{fontSize: '15px'}}>{data.thanks}</b>
+                            </center>
                           </div>
                         )}
                         
-                      </IconButton>
-                      <IconButton aria-label="Share">
-                        <ShareIcon />
                       </IconButton>
                     </CardActions>
                     <ExpansionPanel
