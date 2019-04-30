@@ -69,7 +69,7 @@ export default class Login extends React.Component {
   handleSubmit() {
     axios({
       method: "POST",
-      url: "http://192.168.100.18:8080/api/login",
+      url: "http://192.168.100.33:8080/api/login",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
@@ -103,7 +103,7 @@ export default class Login extends React.Component {
   //   }
   // }
   googleSignin() {
-    window.location = "http://192.168.100.18:8080/api/auth/google";
+    window.location = "http://192.168.100.33:8080/api/auth/google";
   }
 
   render() {

@@ -61,7 +61,7 @@ export default class Profile extends Component {
             };
             }, () => axios({
                 method: "post",
-                url: "http://192.168.100.18:8080/api/profile",
+                url: "http://192.168.100.33:8080/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export default class Profile extends Component {
         }else{
             axios({
                 method: "post",
-                url: "http://192.168.100.18:8080/api/profile",
+                url: "http://192.168.100.33:8080/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",
@@ -243,7 +243,7 @@ export default class Profile extends Component {
                         <Icon path={mdiSettings} size={0.8} color="#444" />
                     </Fab>
                     <center>
-                        <Avatar alt={this.state.username} src={"http://192.168.100.18/src/web-api/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
+                        <Avatar alt={this.state.username} src={"http://192.168.100.33/src/web-api/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
                         <h2>{this.state.username}</h2>
                     </center>
                     <div>

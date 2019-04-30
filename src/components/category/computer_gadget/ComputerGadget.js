@@ -68,7 +68,7 @@ class ComputerGadget extends React.Component {
   componentDidMount() {
     axios({
       method: "post",
-      url: "http://192.168.100.18:8080/api/posting/home/computer-gadget",
+      url: "http://192.168.100.33:8080/api/posting/home/computer-gadget",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -89,7 +89,7 @@ class ComputerGadget extends React.Component {
     if (this.state.thanks == 1) {
       axios({
         method: "post",
-        url: "http://192.168.100.18:8080/api/posting/home/computer-gadget",
+        url: "http://192.168.100.33:8080/api/posting/home/computer-gadget",
         headers: {
           "Acces-Control-Allow-Origin": true,
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ class ComputerGadget extends React.Component {
   givethanks(value, value2) {
     axios({
       method: "put",
-      url: "http://192.168.100.18:8080/api/posting/thanks/post/user",
+      url: "http://192.168.100.33:8080/api/posting/thanks/post/user",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ class ComputerGadget extends React.Component {
     }));
     axios({
       method: "POST",
-      url: "http://192.168.100.18:8080/api/comments",
+      url: "http://192.168.100.33:8080/api/comments",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -151,7 +151,7 @@ class ComputerGadget extends React.Component {
                       aria-label="Recipe"
                       className={classes.avatar}
                       src={
-                        "http://192.168.100.18/src/web-api/public/avatar/" +
+                        "http://192.168.100.33/src/web-api/public/avatar/" +
                         data.foto
                       }
                     />
@@ -173,7 +173,7 @@ class ComputerGadget extends React.Component {
                 <CardMedia
                   className={classes.media}
                   image={
-                    "http://192.168.100.18/src/web-api/public/posting/foto/" +
+                    "http://192.168.100.33/src/web-api/public/posting/foto/" +
                     data.fotocontent
                   }
                 />

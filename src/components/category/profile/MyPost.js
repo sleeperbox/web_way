@@ -28,7 +28,7 @@ export default class MyPost extends Component {
     componentDidMount() {
         axios({
           method: "post",
-          url: "http://192.168.100.18:8080/api/posting/profile",
+          url: "http://192.168.100.33:8080/api/posting/profile",
           headers: {
             "Acces-Control-Allow-Origin": true,
             "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export default class MyPost extends Component {
                                                     </CardMedia>
                                                     ) : (
                                                     <CardMedia>
-                                                        <img height="225" width="225" src={"http://192.168.100.18/src/web-api/public/posting/foto/" + data.fotocontent}/>
+                                                        <img height="225" width="225" src={"http://192.168.100.33/src/web-api/public/posting/foto/" + data.fotocontent}/>
                                                     </CardMedia>
                                                     )}
                                                     </center>
