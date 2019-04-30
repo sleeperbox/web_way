@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import classnames from "classnames";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -11,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteIconBorder from "@material-ui/icons/favoriteborder";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import axios from "axios";
@@ -28,16 +28,6 @@ const styles = theme => ({
   actions: {
     display: "flex"
   },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  },
   avatar: {
     opacity: "100%"
   }
@@ -47,7 +37,6 @@ class ComputerGadget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false,
       email: localStorage.getItem("email").slice(1, -1),
       posting: [],
       tgl: new Date().toDateString(),
@@ -118,9 +107,6 @@ class ComputerGadget extends React.Component {
     );
   }
   handleExpandClick (id_post) {
-    this.setState(state => ({
-      expanded: !state.expanded
-    }));
     axios({
       method: "POST",
       url: "http://192.168.100.33:8080/api/comments",
@@ -141,22 +127,27 @@ class ComputerGadget extends React.Component {
 
     return (
       <div>
-        {posting.map((data, index) => {
+        {posting.length === 0 ? (
+          <div>
+            <p>No post yet..</p>
+          </div>
+        ) : (
+          <div>
+            {posting.map((data, index) => {
           return (
             <div key={data._id}>
               <Card className={classes.card}>
                 <CardHeader
                   avatar={
                     <Avatar
-                      aria-label="Recipe"
                       className={classes.avatar}
                       src={
-                        "http://192.168.100.33/src/web-api/public/avatar/" +
+                        "http://aprizal.com/public/avatar" +
                         data.foto
                       }
                     />
                   }
-                  title={"@" + data.username}
+                  title={data.username}
                   subheader={
                     data.date.slice(11) == this.state.year
                       ? data.date.slice(4, -5) == this.state.datemonth
@@ -169,56 +160,76 @@ class ComputerGadget extends React.Component {
                       : data.date.slice(4)
                   }
                 />
-
-                <CardMedia
-                  className={classes.media}
-                  image={
-                    "http://192.168.100.33/src/web-api/public/posting/foto/" +
-                    data.fotocontent
-                  }
-                />
-
-                <CardContent>
-                  <Typography component="p">
-                    <b>{data.content}</b>
-                  </Typography>
-                </CardContent>
-                <CardActions className={classes.actions} disableActionSpacing>
-                  <IconButton aria-label="Add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  <IconButton aria-label="Share">
-                    <ShareIcon />
-                  </IconButton>
-                </CardActions>
-
-                <ExpansionPanel
-                  onClick={() => this.handleExpandClick(data.id_posts)}
-                >
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>
-                      Comments
-                    </Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
+                {data.fotocontent === null ? (
+                  <div>
+                    <CardMedia
+                      className={classes.media}
+                      image={
+                        "http://aprizal.com/public/icon/icon/komp.png"
+                      }
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <CardMedia
+                      className={classes.media}
+                      image={
+                        "http://aprizal.com/public/posting/foto/" +
+                        data.fotocontent
+                      }
+                    />
+                  </div>
+                )}
                     <CardContent>
-                      {commentByPostId.map((a, index) => {
-                            return (
-                       
-                                <Typography key={a._id}>
-                                  {a.comment}   
-                                </Typography>
-                             
-                            );
-                      })}
+                      <Typography component="p">
+                        <b>{data.content}</b>
+                      </Typography>
                     </CardContent>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              </Card>
-              <br />
-            </div>
-          );
-        })}
+                    <CardActions className={classes.actions} disableActionSpacing>
+                      <IconButton aria-label="Thanks">
+                        {this.state.kode == 1 ? (
+                          <div>
+                           <small>
+                              <FavoriteIconBorder onClick={() => this.givethanks(data._id, data.username)}/><b style={{fontSize: '15px'}}>{data.thanks}</b>
+                            </small>
+                          </div>
+                        ) : (
+                          <div>
+                            <center>
+                              <FavoriteIcon onClick={() => this.givethanks(data._id, data.username)}/> <b style={{fontSize: '15px'}}>{data.thanks}</b>
+                            </center>
+                          </div>
+                        )}
+                        
+                      </IconButton>
+                    </CardActions>
+                    <ExpansionPanel
+                      onClick={() => this.handleExpandClick(data.id_posts)}
+                    >
+                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography className={classes.heading}>
+                        {data.comment} Comments
+                        </Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        <CardContent>
+                          {commentByPostId.map((a, index) => {
+                            return (
+                              <Typography key={a._id}>
+                                {a.comment} 
+                              </Typography>
+                            );
+                          })}
+                        </CardContent>
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  </Card>
+                  <br />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }

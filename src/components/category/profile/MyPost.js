@@ -100,7 +100,7 @@ export default class MyPost extends Component {
                                                     </CardMedia>
                                                     ) : (
                                                     <CardMedia>
-                                                        <img height="225" width="225" src={"http://192.168.100.33/src/web-api/public/posting/foto/" + data.fotocontent}/>
+                                                        <img height="225" width="225" src={"http://aprizal.com/public/posting/foto/" + data.fotocontent}/>
                                                     </CardMedia>
                                                     )}
                                                     </center>

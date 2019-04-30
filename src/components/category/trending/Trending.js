@@ -19,12 +19,6 @@ export default class Trending extends Component {
     };
   }
 
-  handleChange(value) {
-    this.setState({
-      expanded: value
-    });
-  }
-
   componentWillMount() {
     axios
       .post("http://192.168.100.33:8080/api/posting/trending")
@@ -35,11 +29,9 @@ export default class Trending extends Component {
   }
 
   render() {
-    const { open } = this.state;
     return (
       <div>
         <div>
-        {open ? this.imageClicked() : null}
         {this.trendingPost()}
         {this.trendingUser()}
         </div>
@@ -68,7 +60,7 @@ export default class Trending extends Component {
                     ) : (
                       <img
                         src={
-                          "http://192.168.100.33/src/web-api/public/posting/foto/" +
+                          "http://aprizal.com/public/posting/foto/" +
                           data.fotocontent
                         }
                       />
@@ -111,15 +103,15 @@ export default class Trending extends Component {
                    <GridList cols={5} cellHeight={100} spacing={2}>
                     {users.map(user => (
                       
-                    <Card style={{margin: 20}} key={user._id}>
-                        <CardContent>
-                            <center>
-                                <Avatar src={"http://192.168.100.33/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
-                                <br />
-                                <small>{"@" + user.username}</small>
-                            </center>
-                        </CardContent>
-                    </Card>
+                      <Card style={{margin: 20}} key={user._id}>
+                          <CardContent>
+                              <center>
+                                  <Avatar src={"http://aprizal.com/public/avatar/" + user.foto} height={20} width={20}/>
+                                  <br />
+                                  <small>{user.username}</small>
+                              </center>
+                          </CardContent>
+                      </Card>
                     ))}
                     </GridList>
                     </div>

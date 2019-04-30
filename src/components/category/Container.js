@@ -58,14 +58,14 @@ class Container extends React.Component {
         >
             <Tab icon={<TrendingIcon/>} style={{minWidth: 50}}/>
             <Tab label="Home" />
-            <Tab label="Komputer & gadget" />
-            <Tab label="Keluarga & Asmara" />
-            <Tab label="Fakta & Rumor" />
-            <Tab label="Bisnis & Pekerjaan" />
-            <Tab label="Fashion & Gaya Hidup" />
+            <Tab label="Computer & Gadget" />
+            <Tab label="Family & Love" />
+            <Tab label="Fact & Rumor" />
+            <Tab label="Business" />
+            <Tab label="Fashion" />
             <Tab label="Quotes" />
-            <Tab label="Riddless" />
-            <Tab label="Lainnya" />
+            <Tab label="Riddles" />
+            <Tab label="Other" />
           </Tabs>
         </AppBar>
         <br />
@@ -75,13 +75,13 @@ class Container extends React.Component {
               {value === 0 && <TabContainer><Trending/></TabContainer>}
               {value === 1 && <TabContainer><Home/></TabContainer>}
               {value === 2 && <TabContainer><ComputerGadget/></TabContainer>}
-              {value === 3 && <TabContainer>Keluarga dan asmara</TabContainer>}
-              {value === 4 && <TabContainer>Fakta & rumor</TabContainer>}
-              {value === 5 && <TabContainer>Bisnis & Pekerjaan</TabContainer>}
-              {value === 6 && <TabContainer>Fashion & gaya hidup</TabContainer>}
+              {value === 3 && <TabContainer>Family and Love</TabContainer>}
+              {value === 4 && <TabContainer>Fact and Rumor</TabContainer>}
+              {value === 5 && <TabContainer>Bussines</TabContainer>}
+              {value === 6 && <TabContainer>Fashion</TabContainer>}
               {value === 7 && <TabContainer>Quotes</TabContainer>} 
-              {value === 8 && <TabContainer>Riddless</TabContainer>}    
-              {value === 9 && <TabContainer>Lainnya</TabContainer>}    
+              {value === 8 && <TabContainer>Riddles</TabContainer>}    
+              {value === 9 && <TabContainer>Other</TabContainer>}    
           </Grid>
           <Grid item xs sm={4} style={{height:'100%'}}>
               <TabContainer>
