@@ -54,7 +54,7 @@ export default class GridPost extends Component {
       .then(result => this.setState({ posts: result.data, isLoading: false }));
     axios
       .post("http://192.168.100.33:8080/api/user/trending")
-      .then(result => this.setState({ users: result.data, isLoading: false }));
+      .then(result => this.setState({ users: result.data }));
   }
 
   categoryClicked(value){
@@ -197,7 +197,7 @@ export default class GridPost extends Component {
   }  
 
   render() {
-    const { open, openModal, isLoading } = this.state;
+    const { open, openModal } = this.state;
     return (
       <div>
         <div>

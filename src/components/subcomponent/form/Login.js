@@ -125,7 +125,7 @@ export default class Login extends React.Component {
           <MySnackbarContentWrapper
             style={{ background: "#ffa000" }}
             variant="error"
-            message="Username/Email Has Been Used !"
+            message="Account or password is wrong!"
           />
         ) : null}
         <br />
