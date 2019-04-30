@@ -234,6 +234,7 @@ class ComputerGadget extends React.Component {
                           <div>
                             <center>
                               <FavoriteIcon
+                                style={{color: 'red'}}
                                 onClick={() =>
                                   this.givethanks(data._id, data.username)
                                 }
@@ -246,13 +247,13 @@ class ComputerGadget extends React.Component {
                     </CardActions>
                     <ExpansionPanel expanded={expanded === data.id_posts} onChange={this.handleChange(data.id_posts)}>
                     
-                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                      <ExpansionPanelSummary style={{background: "#f7f7f7"}} expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>
-                          {data.comment} Comments
+                          <i style={{color:"blue"}}>{data.comment} Comments</i>
                         </Typography>
                       </ExpansionPanelSummary>
-                      <ExpansionPanelDetails>
-                        <CardContent>
+                      <ExpansionPanelDetails style={{background: "#f7f7f7"}}>
+                        <CardContent style={{marginTop: "-30PX"}}  >
                           {isLoadingComment ? (
                             this.skeletonComment()
                           ) : commentByPostId.length === 0 ? (
@@ -260,7 +261,7 @@ class ComputerGadget extends React.Component {
                           ) : (
                             commentByPostId.map((a, index) => {
                               return (
-                                <List key={a._id}>
+                                <List style={{marginTop: "-20PX"}} key={a._id}>
                                   <ListItem>
                                     <Avatar
                                       className={classes.avatar}
