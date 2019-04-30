@@ -84,7 +84,7 @@ export default class Profile extends Component {
                       join_date: result.data.join_date,
                       followed_topic: result.data.tags,
                       foto: result.data.foto
-                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+                    })
               ));
             
         }else{
@@ -113,11 +113,8 @@ export default class Profile extends Component {
                       join_date: result.data.join_date,
                       followed_topic: result.data.tags,
                       foto: result.data.foto
-                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+                    })
               );
-        
-        
-        console.log("test", this.state)
         }
 
             
@@ -243,7 +240,7 @@ export default class Profile extends Component {
                         <Icon path={mdiSettings} size={0.8} color="#444" />
                     </Fab>
                     <center>
-                        <Avatar alt={this.state.username} src={"http://192.168.100.33/src/web-api/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
+                        <Avatar alt={this.state.username} src={"http://aprizal.com/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
                         <h2>{this.state.username}</h2>
                     </center>
                     <div>
