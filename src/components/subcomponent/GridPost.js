@@ -31,6 +31,8 @@ export default class GridPost extends Component {
       openModal: false
     };
     this.generateSkeleton = this.generateSkeleton.bind(this);
+    this.generateSkeleton1 = this.generateSkeleton1.bind(this);
+    this.generateSkeleton2 = this.generateSkeleton2.bind(this);
   }
 
   handleChange(value) {
@@ -54,7 +56,7 @@ export default class GridPost extends Component {
       .then(result => this.setState({ posts: result.data, isLoading: false }));
     axios
       .post("http://192.168.100.33:8080/api/user/trending")
-      .then(result => this.setState({ users: result.data }));
+      .then(result => this.setState({ users: result.data, isLoading: false }));
   }
 
   categoryClicked(value){
@@ -191,10 +193,47 @@ export default class GridPost extends Component {
           <GridListTile cols={1} rows={1}>
             <Skeleton height={200} width={310}/>
           </GridListTile>
-          
       </GridList>      
     );
-  }  
+  }
+  
+  generateSkeleton1() {
+    const { posts } = this.state
+    return(
+      <GridList cellHeight={25} spacing={3} style={{marginTop: "15px"}}>
+            <Skeleton height={23} width={110} count={5}/>
+      </GridList>
+    );
+  }
+
+  generateSkeleton2() {
+    const { posts } = this.state
+    return(
+      <GridList cols={5} cellHeight={100} spacing={2}>
+            <Card style={{margin: 5}}>
+              <Skeleton/>
+            </Card>
+            <Card style={{margin: 5}}>
+              <Skeleton/>
+            </Card>
+            <Card style={{margin: 5}}>
+              <Skeleton/>
+            </Card>
+            <Card style={{margin: 5}}>
+              <Skeleton/>
+            </Card>
+            <Card style={{margin: 5}}>
+              <Skeleton/>
+            </Card>
+            <Card style={{margin: 5}}>
+              <Skeleton/>
+            </Card>
+            <Card style={{margin: 5}}>
+              <Skeleton/>
+            </Card>
+      </GridList>
+    );
+  }
 
   render() {
     const { open, openModal } = this.state;
@@ -262,12 +301,13 @@ export default class GridPost extends Component {
   }
 
   trendingUser() {
-    const { users } = this.state;
+    const { users, isLoading } = this.state;
     return (
       <div style={{marginTop: 10}}>
       <div style={{padding: 15, margin: 2}}>
          <p style={{fontSize: "1.5em", margin: 5}}>valuable user</p>
-          {users.length === 0 ? (
+          {isLoading ? (this.generateSkeleton1()
+          ) : users.length === 0 ? (
             <div>
               <p>No valuable users yet...</p>
             </div>
@@ -292,69 +332,74 @@ export default class GridPost extends Component {
   }
 
   trendingCategory() {
+    const { users, isLoading } = this.state;
     return (
     <div style={{marginTop: 10}}>
       <div style={{padding: 15, margin: 2}}>
       <p style={{ fontSize: "1.2em"}}>Category For You</p>
       <div style={{maxWidth: "100%"}}>
-        <GridList cols={5} cellHeight={100} spacing={2}>
-          <Card style={{margin: 5}}>
-            <CardContent onClick={() => this.categoryClicked("business-work")}>
-              <center>
-                <img src="http://aprizal.com/public/icon/icon/bisnis.png" height={50} width={50}/>
-                <small>business</small>
-              </center>
-            </CardContent>
-          </Card>
-          <Card style={{margin: 5}}>
-            <CardContent onClick={() => this.categoryClicked("fact-rumour")}>
-              <center>
-                <img src="http://aprizal.com/public/icon/icon/f&r.png" height={50} width={50}/>
-                <small>fact&amp;rumor</small>
-              </center>
-            </CardContent>
-          </Card>
-          <Card style={{margin: 5}}>
-            <CardContent onClick={() => this.categoryClicked("fashion-lifestyle")}>
-              <center>
-                <img src="http://aprizal.com/public/icon/icon/fashion.png" height={50} width={50}/>
-                <small>fashion</small>
-              </center>
-            </CardContent>
-          </Card>
-          <Card style={{margin: 5}}>
-            <CardContent onClick={() => this.categoryClicked("computer-gadget")}>
-              <center>
-                <img src="http://aprizal.com/public/icon/icon/komp.png" height={50} width={50}/>
-                <small>com&amp;gadget</small>
-              </center>
-            </CardContent>
-          </Card>
-          <Card style={{margin: 5}}>
-            <CardContent onClick={() => this.categoryClicked("family-love")}>
-              <center>
-                <img src="http://aprizal.com/public/icon/icon/family.png" height={50} width={50}/>
-                <small>fams&amp;love</small>
-              </center>
-            </CardContent>
-          </Card>
-          <Card style={{margin: 5}}>
-            <CardContent onClick={() => this.categoryClicked("riddles")}>
-              <center>
-                <img src="http://aprizal.com/public/icon/icon/riddle.png" height={50} width={50}/>
-                <small>riddle</small>
-              </center>
-            </CardContent>
-          </Card>
-          <Card style={{margin: 5}}>
-            <CardContent onClick={() => this.categoryClicked("other")}>
-              <center>
-                <img src="http://aprizal.com/public/icon/icon/other.png"height={50} width={50}/>
-                <small> other</small>
-              </center>
-            </CardContent>
-          </Card>
-        </GridList>
+      {isLoading ? (this.generateSkeleton2()
+          ) :(
+            <GridList cols={5} cellHeight={100} spacing={2}>
+            <Card style={{margin: 5}}>
+              <CardContent onClick={() => this.categoryClicked("business-work")}>
+                <center>
+                  <img src="http://aprizal.com/public/icon/icon/bisnis.png" height={50} width={50}/>
+                  <small>business</small>
+                </center>
+              </CardContent>
+            </Card>
+            <Card style={{margin: 5}}>
+              <CardContent onClick={() => this.categoryClicked("fact-rumour")}>
+                <center>
+                  <img src="http://aprizal.com/public/icon/icon/f&r.png" height={50} width={50}/>
+                  <small>fact&amp;rumor</small>
+                </center>
+              </CardContent>
+            </Card>
+            <Card style={{margin: 5}}>
+              <CardContent onClick={() => this.categoryClicked("fashion-lifestyle")}>
+                <center>
+                  <img src="http://aprizal.com/public/icon/icon/fashion.png" height={50} width={50}/>
+                  <small>fashion</small>
+                </center>
+              </CardContent>
+            </Card>
+            <Card style={{margin: 5}}>
+              <CardContent onClick={() => this.categoryClicked("computer-gadget")}>
+                <center>
+                  <img src="http://aprizal.com/public/icon/icon/komp.png" height={50} width={50}/>
+                  <small>com&amp;gadget</small>
+                </center>
+              </CardContent>
+            </Card>
+            <Card style={{margin: 5}}>
+              <CardContent onClick={() => this.categoryClicked("family-love")}>
+                <center>
+                  <img src="http://aprizal.com/public/icon/icon/family.png" height={50} width={50}/>
+                  <small>fams&amp;love</small>
+                </center>
+              </CardContent>
+            </Card>
+            <Card style={{margin: 5}}>
+              <CardContent onClick={() => this.categoryClicked("riddles")}>
+                <center>
+                  <img src="http://aprizal.com/public/icon/icon/riddle.png" height={50} width={50}/>
+                  <small>riddle</small>
+                </center>
+              </CardContent>
+            </Card>
+            <Card style={{margin: 5}}>
+              <CardContent onClick={() => this.categoryClicked("other")}>
+                <center>
+                  <img src="http://aprizal.com/public/icon/icon/other.png"height={50} width={50}/>
+                  <small> other</small>
+                </center>
+              </CardContent>
+            </Card>
+          </GridList>    
+          )}
+        
         </div>
       </div>
     </div>
