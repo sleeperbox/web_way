@@ -24,10 +24,10 @@ export default class Trending extends Component {
 
   componentWillMount() {
     axios
-      .post("http://192.168.100.33:8080/api/posting/trending")
+      .post("http://apps.aprizal.com/api/posting/trending")
       .then(result => this.setState({ posts: result.data, isLoading: false }));
     axios
-      .post("http://192.168.100.33:8080/api/user/trending")
+      .post("http://apps.aprizal.com/api/user/trending")
       .then(result => this.setState({ users: result.data }));
   }
 

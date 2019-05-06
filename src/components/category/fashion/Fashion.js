@@ -63,7 +63,7 @@ class Fashion extends React.Component {
   componentDidMount() {
     axios({
       method: "post",
-      url: "http://192.168.100.33:8080/api/posting/home/fashion-lifestyle",
+      url: "http://apps.aprizal.com/api/posting/home/fashion-lifestyle",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ class Fashion extends React.Component {
     if (this.state.thanks == 1) {
       axios({
         method: "post",
-        url: "http://192.168.100.33:8080/api/posting/home/fashion-lifestyle",
+        url: "http://apps.aprizal.com/api/posting/home/fashion-lifestyle",
         headers: {
           "Acces-Control-Allow-Origin": true,
           "Content-Type": "application/json",
@@ -101,7 +101,7 @@ class Fashion extends React.Component {
   givethanks(value, value2) {
     axios({
       method: "put",
-      url: "http://192.168.100.33:8080/api/posting/thanks/post/user",
+      url: "http://apps.aprizal.com/api/posting/thanks/post/user",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ class Fashion extends React.Component {
     });
     axios({
           method: "POST",
-          url: "http://192.168.100.33:8080/api/comments",
+          url: "http://apps.aprizal.com/api/comments",
           headers: {
             "Acces-Control-Allow-Origin": true,
             "Content-Type": "application/json",

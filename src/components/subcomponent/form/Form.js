@@ -131,7 +131,7 @@ class Form extends React.Component {
     if (this.state.value === 0) {
       axios({
         method: "POST",
-        url: "http://192.168.100.33:8080/api/register/phone",
+        url: "http://apps.aprizal.com/api/register/phone",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -153,7 +153,7 @@ class Form extends React.Component {
     } else {
       axios({
         method: "POST",
-        url: "http://192.168.100.33:8080/api/register",
+        url: "http://apps.aprizal.com/api/register",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -175,7 +175,7 @@ class Form extends React.Component {
     }
   }
   googleSignin() {
-    window.location = "http://192.168.100.33:8080/api/auth/google";
+    window.location = "http://apps.aprizal.com/api/auth/google";
   }
   render() {
     const btnColor = {

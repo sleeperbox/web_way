@@ -58,7 +58,7 @@ export default class Profile extends Component {
             };
             }, () => axios({
                 method: "post",
-                url: "http://192.168.100.33:8080/api/profile",
+                url: "http://apps.aprizal.com/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export default class Profile extends Component {
         }else{
             axios({
                 method: "post",
-                url: "http://192.168.100.33:8080/api/profile",
+                url: "http://apps.aprizal.com/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",

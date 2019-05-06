@@ -20,8 +20,6 @@ import Riddles from './riddles/Riddles';
 import Quotes from './quotes/Quotes';
 import Other from './other/Other';
 
-
-
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 }}>
@@ -53,20 +51,20 @@ class Container extends React.Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-
+    
     return (
       <div className={classes.root}>
         <AppBar position="sticky" color="default">
         <Tabs
           value={value}
           onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor="secondary"
+          textColor="secondary"
           variant="scrollable"
           scrollButtons="auto"
         >
             <Tab icon={<TrendingIcon/>} style={{minWidth: 50}}/>
-            <Tab label="Home" />
+            <Tab label="All Tags" />
             <Tab label="Computer & Gadget" />
             <Tab label="Family & Love" />
             <Tab label="Fact & Rumor" />

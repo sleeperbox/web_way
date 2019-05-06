@@ -28,7 +28,7 @@ export default class MyPost extends Component {
     componentDidMount() {
         axios({
           method: "post",
-          url: "http://192.168.100.33:8080/api/posting/profile",
+          url: "http://apps.aprizal.com/api/posting/profile",
           headers: {
             "Acces-Control-Allow-Origin": true,
             "Content-Type": "application/json",
