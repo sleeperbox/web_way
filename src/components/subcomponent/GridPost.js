@@ -61,7 +61,7 @@ export default class GridPost extends Component {
   categoryClicked(value){
     axios({
       method: "post",
-      url: "http://apps.aprizal.com/api/posting/limit",
+      url: "http://apps.aprizal.com/api/posting/tag/limit",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
