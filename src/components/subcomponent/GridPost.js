@@ -14,7 +14,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import Skeleton from 'react-loading-skeleton';
 import axios from "axios";
 
@@ -52,17 +51,17 @@ export default class GridPost extends Component {
 
   componentWillMount() {
     axios
-      .post("http://192.168.100.33:8080/api/posting/trending")
+      .post("http://apps.aprizal.com/api/posting/trending")
       .then(result => this.setState({ posts: result.data, isLoading: false }));
     axios
-      .post("http://192.168.100.33:8080/api/user/trending")
+      .post("http://apps.aprizal.com/api/user/trending")
       .then(result => this.setState({ users: result.data, isLoading: false }));
   }
 
   categoryClicked(value){
     axios({
       method: "post",
-      url: "http://192.168.100.33:8080/api/posting/limit",
+      url: "http://apps.aprizal.com/api/posting/limit",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
@@ -94,7 +93,7 @@ export default class GridPost extends Component {
       ) : (
      <img 
        onClick={this.handleClickOpen}
-       src={"http://192.168.100.33/src/web-api/public/posting/foto/" + data.fotocontent} style={{height: "350px", width: "350px"}}/>
+       src={"http://aprizal.com/public/posting/foto/" + data.fotocontent} style={{height: "350px", width: "350px"}}/>
       )}
      </center>
      <div style={{marginTop: 2, padding: 10, margin: 2}}>
@@ -275,7 +274,7 @@ export default class GridPost extends Component {
                       <img
                       onClick={this.handleClickOpen}
                         src={
-                          "http://192.168.100.33/src/web-api/public/posting/foto/" +
+                          "http://aprizal.com/public/posting/foto/" +
                           data.fotocontent
                         }
                       />
