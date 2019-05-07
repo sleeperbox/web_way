@@ -8,7 +8,6 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import InputMask from 'react-input-mask';
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import Icon from "@mdi/react";
 import { mdiGooglePlus } from "@mdi/js";
@@ -85,8 +84,7 @@ class Form extends React.Component {
       isLogin: "",
       token: "",
       warning: null,
-      phone_number: "",
-      number: null
+      phone_number: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -131,7 +129,7 @@ class Form extends React.Component {
     if (this.state.value === 0) {
       axios({
         method: "POST",
-        url: "http://apps.aprizal.com/api/register/phone",
+        url: "http://192.168.100.18:8080/api/register/phone",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -153,7 +151,7 @@ class Form extends React.Component {
     } else {
       axios({
         method: "POST",
-        url: "http://apps.aprizal.com/api/register",
+        url: "http://192.168.100.18:8080/api/register",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
@@ -175,7 +173,7 @@ class Form extends React.Component {
     }
   }
   googleSignin() {
-    window.location = "http://apps.aprizal.com/api/auth/google";
+    window.location = "http://192.168.100.18:8080/api/auth/google";
   }
   render() {
     const btnColor = {
@@ -236,9 +234,13 @@ class Form extends React.Component {
               name="phone_number"
               placeholder="082316xxxxx"
               onChange={this.handleChange}
+<<<<<<< HEAD
+              style={{backgroundColor:'transparent'}}
               onInput = {(e) =>{
                 e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,13)
             }}
+=======
+>>>>>>> dev/1.5
             />
           )}
           {value === 1 && (
@@ -251,6 +253,7 @@ class Form extends React.Component {
               margin="normal"
               name="email"
               onChange={this.handleChange}
+              style={{backgroundColor:'transparent'}}              
             />
           )}
         </div>

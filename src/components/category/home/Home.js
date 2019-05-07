@@ -1,139 +1,177 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classnames from 'classnames';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import Paper from "@material-ui/core/Paper";
+import axios from "axios";
+import ComputerGadget from "./../computer_gadget/ComputerGadget";
+import FactRumor from "./../fact_rumor/FactRumor";
+import FamilyLove from "./../family_love/FamilyLove";
+import Business from "./../business/Business";
+import Fashion from "./../fashion/Fashion";
+import Riddles from "./../riddles/Riddles";
+import Quotes from "./../quotes/Quotes";
+import Other from "./../other/Other";
+import Divider from "@material-ui/core/Divider";
+import Avatar from "@material-ui/core/Avatar";
+import Skeleton from "react-loading-skeleton";
+import Card from "@material-ui/core/Card";
 
 const styles = theme => ({
-  card: {
-    maxWidth: '100%',
+  subHeader: {
+    backgroundColor: 'white'
   },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  actions: {
-    display: 'flex',
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
+  paper: {
+    marginTop: -7
+  }
 });
 
-class RecipeReviewCard extends React.Component {
-  state = { expanded: false };
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: null,
+      tags: [],
+      isLoading: true
+    };
+  }
+  componentDidMount() {
+    const email = localStorage.getItem("email").slice(1, -1);
+    this.setState(
+      {
+        email: email
+      },
+      () =>
+        axios({
+          method: "post",
+          url: "http://apps.aprizal.com/api/profile",
+          headers: {
+            "Acces-Control-Allow-Origin": true,
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          data: {
+            email: this.state.email // This is the body part
+          }
+        }).then(result =>
+          this.setState({ tags: result.data.tags, isLoading: false })
+        )
+    );
+  }
 
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  };
- 
-  render() {
+  skeletonPosting() {
     const { classes } = this.props;
-
     return (
       <Card className={classes.card}>
-     
-        <CardHeader
-          avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar}>
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        {/*<CardMedia
-          className={classes.media}
-          image="../../../public/images/Lighthouse.jpg"
-          title="Paella dish"
-        />
-        */}
-        <CardContent>
-          <Typography component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
-          </Typography>
-        </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton>
-          <IconButton
-            className={classnames(classes.expand, {
-              [classes.expandOpen]: this.state.expanded,
-            })}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Method:</Typography>
-            <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-              minutes.
-            </Typography>
-            <Typography paragraph>
-              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-              heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-              browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
-              chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion,
-              salt and pepper, and cook, stirring often until thickened and fragrant, about 10
-              minutes. Add saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-            </Typography>
-            <Typography paragraph>
-              Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-              without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat
-              to medium-low, add reserved shrimp and mussels, tucking them down into the rice, and
-              cook again without stirring, until mussels have opened and rice is just tender, 5 to 7
-              minutes more. (Discard any mussels that don’t open.)
-            </Typography>
-            <Typography>
-              Set aside off of the heat to let rest for 10 minutes, and then serve.
-            </Typography>
-          </CardContent>
-        </Collapse>
+        <Skeleton height={600} avatar={<Avatar aria-label="Recipe" />} />
       </Card>
+    );
+  }
+  render() {
+    const { classes } = this.props;
+    const { tags, isLoading } = this.state;
+    var element = tags.join();
+    const newArray = element.split(",");
+    var judul = newArray.values();
+    return (
+      <React.Fragment>
+        <List>
+          {isLoading
+            ? this.skeletonPosting()
+            : newArray.map((data, index) => (
+                <Fragment key={index}>
+                  <Paper square className={classes.paper}>
+                    <ListSubheader
+                      className={classes.subHeader}
+                      style={{ paddingTop: 10 }}
+                    >
+                      {data === "null" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/follow.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "computer-gadget" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/komp.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "family-love" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/family.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "fact-rumour" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/f&r.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "business-work" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/bisnis.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "fashion-lifestyle" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/fashion.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "quotes" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/quotes.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "other" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/other.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : data === "riddles" ? (
+                        <Avatar
+                          src="http://aprizal.com/public/icon/icon/riddle.png"
+                          width="7%"
+                          style={{ float: "left" }}
+                        />
+                      ) : null}
+                      <b>{judul.next().value}</b>
+                    </ListSubheader>
+                  </Paper>
+                  <Divider style={{ backgroundColor: "red" }} />
+                  {data === "other" ? (
+                    <Other />
+                  ) : data === "quotes" ? (
+                    <Quotes />
+                  ) : data === "riddles" ? (
+                    <Riddles />
+                  ) : data === "computer-gadget" ? (
+                    <ComputerGadget />
+                  ) : data === "family-love" ? (
+                    <FamilyLove />
+                  ) : data === "business-work" ? (
+                    <Business />
+                  ) : data === "fact-rumour" ? (
+                    <FactRumor />
+                  ) : data === "fashion-lifestyle" ? (
+                    <Fashion />
+                  ) : null}
+                </Fragment>
+              ))}
+        </List>
+      </React.Fragment>
     );
   }
 }
 
-RecipeReviewCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+Home.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(RecipeReviewCard);
+export default withStyles(styles)(Home);

@@ -10,7 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteIconBorder from "@material-ui/icons/favoriteborder";
+import PostingIcon from "@material-ui/icons/listalt";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import axios from "axios";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -153,7 +153,19 @@ class Business extends React.Component {
           this.skeletonPosting()
         ) : posting.length === 0 ? (
           <div>
-            <p>No post yet..</p>
+            <Card className={classes.card}>
+              <div>
+                <center>
+                <PostingIcon style={{fontSize: 150}}/>
+                </center>
+                <center>
+                  <b style={{fontSize: 25}}>0 post</b>
+                </center>
+                <br />
+                <br />
+              </div>
+            </Card>
+            <br />
           </div>
         ) : (
           <div>
@@ -185,7 +197,7 @@ class Business extends React.Component {
                       <div>
                         <CardMedia
                           className={classes.media}
-                          image={"http://aprizal.com/public/icon/icon/komp.png"}
+                          image={"http://aprizal.com/public/icon/icon/bisnis.png"}
                         />
                       </div>
                     ) : (
@@ -219,18 +231,7 @@ class Business extends React.Component {
                       disableActionSpacing
                     >
                       <IconButton aria-label="Thanks">
-                        {this.state.kode == 1 ? (
-                          <div>
-                            <small>
-                              <FavoriteIconBorder
-                                onClick={() =>
-                                  this.givethanks(data._id, data.username)
-                                }
-                              />
-                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
-                            </small>
-                          </div>
-                        ) : (
+                        
                           <div>
                             <center>
                               <FavoriteIcon
@@ -239,10 +240,10 @@ class Business extends React.Component {
                                   this.givethanks(data._id, data.username)
                                 }
                               />{" "}
-                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
+                              <b style={{ fontSize: "12px" }}>{data.thanks} Thanks</b>
                             </center>
                           </div>
-                        )}
+                        
                       </IconButton>
                     </CardActions>
                     <ExpansionPanel expanded={expanded === data.id_posts} onChange={this.handleChange(data.id_posts)}>
