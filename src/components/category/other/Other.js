@@ -36,7 +36,7 @@ const styles = theme => ({
   }
 });
 
-class ComputerGadget extends React.Component {
+class Other extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,7 +63,7 @@ class ComputerGadget extends React.Component {
   componentDidMount() {
     axios({
       method: "post",
-      url: "http://apps.aprizal.com/api/posting/home/computer-gadget",
+      url: "http://apps.aprizal.com/api/posting/home/other",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ class ComputerGadget extends React.Component {
     if (this.state.thanks == 1) {
       axios({
         method: "post",
-        url: "http://apps.aprizal.com/api/posting/home/computer-gadget",
+        url: "http://apps.aprizal.com/api/posting/home/other",
         headers: {
           "Acces-Control-Allow-Origin": true,
           "Content-Type": "application/json",
@@ -185,7 +185,7 @@ class ComputerGadget extends React.Component {
                       <div>
                         <CardMedia
                           className={classes.media}
-                          image={"http://aprizal.com/public/icon/icon/komp.png"}
+                          image={"http://aprizal.com/public/icon/icon/other.png"}
                         />
                       </div>
                     ) : (
@@ -227,7 +227,7 @@ class ComputerGadget extends React.Component {
                                   this.givethanks(data._id, data.username)
                                 }
                               />
-                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
+                              <b style={{ fontSize: "12px" }}>{data.thanks} Thanks</b>
                             </small>
                           </div>
                         ) : (
@@ -239,7 +239,7 @@ class ComputerGadget extends React.Component {
                                   this.givethanks(data._id, data.username)
                                 }
                               />{" "}
-                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
+                              <b style={{ fontSize: "12px" }}>{data.thanks} Thanks</b>
                             </center>
                           </div>
                         )}
@@ -330,8 +330,8 @@ class ComputerGadget extends React.Component {
   }
 }
 
-ComputerGadget.propTypes = {
+Other.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ComputerGadget);
+export default withStyles(styles)(Other);

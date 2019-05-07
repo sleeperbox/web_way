@@ -12,6 +12,13 @@ import TrendingIcon from '@material-ui/icons/TrendingUp';
 import Trending from './trending/Trending';
 import Profile from './profile/Profile';
 import ComputerGadget from './computer_gadget/ComputerGadget';
+import FactRumor from './fact_rumor/FactRumor';
+import FamilyLove from './family_love/FamilyLove';
+import Business from './business/Business';
+import Fashion from './fashion/Fashion';
+import Riddles from './riddles/Riddles';
+import Quotes from './quotes/Quotes';
+import Other from './other/Other';
 
 function TabContainer(props) {
   return (
@@ -44,28 +51,28 @@ class Container extends React.Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-
+    
     return (
       <div className={classes.root}>
         <AppBar position="sticky" color="default">
         <Tabs
           value={value}
           onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor="secondary"
+          textColor="secondary"
           variant="scrollable"
           scrollButtons="auto"
         >
             <Tab icon={<TrendingIcon/>} style={{minWidth: 50}}/>
-            <Tab label="Home" />
-            <Tab label="Komputer & gadget" />
-            <Tab label="Keluarga & Asmara" />
-            <Tab label="Fakta & Rumor" />
-            <Tab label="Bisnis & Pekerjaan" />
-            <Tab label="Fashion & Gaya Hidup" />
+            <Tab label="All Tags" />
+            <Tab label="Computer & Gadget" />
+            <Tab label="Family & Love" />
+            <Tab label="Fact & Rumor" />
+            <Tab label="Business" />
+            <Tab label="Fashion" />
             <Tab label="Quotes" />
-            <Tab label="Riddless" />
-            <Tab label="Lainnya" />
+            <Tab label="Riddles" />
+            <Tab label="Other" />
           </Tabs>
         </AppBar>
         <br />
@@ -75,13 +82,13 @@ class Container extends React.Component {
               {value === 0 && <TabContainer><Trending/></TabContainer>}
               {value === 1 && <TabContainer><Home/></TabContainer>}
               {value === 2 && <TabContainer><ComputerGadget/></TabContainer>}
-              {value === 3 && <TabContainer>Keluarga dan asmara</TabContainer>}
-              {value === 4 && <TabContainer>Fakta & rumor</TabContainer>}
-              {value === 5 && <TabContainer>Bisnis & Pekerjaan</TabContainer>}
-              {value === 6 && <TabContainer>Fashion & gaya hidup</TabContainer>}
-              {value === 7 && <TabContainer>Quotes</TabContainer>} 
-              {value === 8 && <TabContainer>Riddless</TabContainer>}    
-              {value === 9 && <TabContainer>Lainnya</TabContainer>}    
+              {value === 3 && <TabContainer><FamilyLove/></TabContainer>}
+              {value === 4 && <TabContainer><FactRumor/></TabContainer>}
+              {value === 5 && <TabContainer><Business/></TabContainer>}
+              {value === 6 && <TabContainer><Fashion/></TabContainer>}
+              {value === 7 && <TabContainer><Quotes/></TabContainer>} 
+              {value === 8 && <TabContainer><Riddles/></TabContainer>}    
+              {value === 9 && <TabContainer><Other/></TabContainer>}    
           </Grid>
           <Grid item xs sm={4} style={{height:'100%'}}>
               <TabContainer>

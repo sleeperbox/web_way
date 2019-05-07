@@ -36,7 +36,7 @@ const styles = theme => ({
   }
 });
 
-class ComputerGadget extends React.Component {
+class FactRumor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,7 +63,7 @@ class ComputerGadget extends React.Component {
   componentDidMount() {
     axios({
       method: "post",
-      url: "http://apps.aprizal.com/api/posting/home/computer-gadget",
+      url: "http://apps.aprizal.com/api/posting/home/fact-rumour",
       headers: {
         "Acces-Control-Allow-Origin": true,
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ class ComputerGadget extends React.Component {
     if (this.state.thanks == 1) {
       axios({
         method: "post",
-        url: "http://apps.aprizal.com/api/posting/home/computer-gadget",
+        url: "http://apps.aprizal.com/api/posting/home/fact-rumour",
         headers: {
           "Acces-Control-Allow-Origin": true,
           "Content-Type": "application/json",
@@ -185,7 +185,7 @@ class ComputerGadget extends React.Component {
                       <div>
                         <CardMedia
                           className={classes.media}
-                          image={"http://aprizal.com/public/icon/icon/komp.png"}
+                          image={"http://aprizal.com/public/icon/icon/f&r.png"}
                         />
                       </div>
                     ) : (
@@ -330,8 +330,8 @@ class ComputerGadget extends React.Component {
   }
 }
 
-ComputerGadget.propTypes = {
+FactRumor.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ComputerGadget);
+export default withStyles(styles)(FactRumor);

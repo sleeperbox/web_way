@@ -20,11 +20,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-
-
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import MyPost from './MyPost'
-
 import axios from 'axios'
 
 const textStyling = {
@@ -61,7 +58,7 @@ export default class Profile extends Component {
             };
             }, () => axios({
                 method: "post",
-                url: "http://192.168.100.18:8080/api/profile",
+                url: "http://apps.aprizal.com/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",
@@ -84,13 +81,13 @@ export default class Profile extends Component {
                       join_date: result.data.join_date,
                       followed_topic: result.data.tags,
                       foto: result.data.foto
-                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+                    })
               ));
             
         }else{
             axios({
                 method: "post",
-                url: "http://192.168.100.18:8080/api/profile",
+                url: "http://apps.aprizal.com/api/profile",
                 headers: {
                   "Acces-Control-Allow-Origin": true,
                   "Content-Type": "application/json",
@@ -113,11 +110,8 @@ export default class Profile extends Component {
                       join_date: result.data.join_date,
                       followed_topic: result.data.tags,
                       foto: result.data.foto
-                    }, () => console.log('state: =>>>>>>>>>>>>>>> ', this.state))
+                    })
               );
-        
-        
-        console.log("test", this.state)
         }
 
             
@@ -243,7 +237,7 @@ export default class Profile extends Component {
                         <Icon path={mdiSettings} size={0.8} color="#444" />
                     </Fab>
                     <center>
-                        <Avatar alt={this.state.username} src={"http://192.168.100.18/src/web-api/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
+                        <Avatar alt={this.state.username} src={"http://aprizal.com/public/avatar/" + this.state.foto} style={{width: "150px", height: "150px"}}/>
                         <h2>{this.state.username}</h2>
                     </center>
                     <div>
