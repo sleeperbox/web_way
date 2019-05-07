@@ -236,6 +236,7 @@ class Form extends React.Component {
               name="phone_number"
               placeholder="082316xxxxx"
               onChange={this.handleChange}
+              style={{backgroundColor:'transparent'}}
               onInput = {(e) =>{
                 e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,13)
             }}
@@ -251,6 +252,7 @@ class Form extends React.Component {
               margin="normal"
               name="email"
               onChange={this.handleChange}
+              style={{backgroundColor:'transparent'}}              
             />
           )}
         </div>

@@ -10,7 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteIconBorder from "@material-ui/icons/favoriteborder";
+import PostingIcon from "@material-ui/icons/listalt";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import axios from "axios";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -20,6 +20,7 @@ import Skeleton from "react-loading-skeleton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+
 
 const styles = theme => ({
   card: {
@@ -119,22 +120,22 @@ class ComputerGadget extends React.Component {
 
   handleChange = panel => (event, expanded) => {
     this.setState({
-      expanded: expanded ? panel : false,
+      expanded: expanded ? panel : false
     });
     axios({
-          method: "POST",
-          url: "http://apps.aprizal.com/api/comments",
-          headers: {
-            "Acces-Control-Allow-Origin": true,
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          data: {
-            id_posts: panel
-          }
-        }).then(result =>
-          this.setState({ commentByPostId: result.data, isLoadingComment: false })
-        );
+      method: "POST",
+      url: "http://apps.aprizal.com/api/comments",
+      headers: {
+        "Acces-Control-Allow-Origin": true,
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      data: {
+        id_posts: panel
+      }
+    }).then(result =>
+      this.setState({ commentByPostId: result.data, isLoadingComment: false })
+    );
   };
 
   render() {
@@ -153,7 +154,19 @@ class ComputerGadget extends React.Component {
           this.skeletonPosting()
         ) : posting.length === 0 ? (
           <div>
-            <p>No post yet..</p>
+            <Card className={classes.card}>
+              <div>
+                <center>
+                <PostingIcon style={{fontSize: 150}}/>
+                </center>
+                <center>
+                  <b style={{fontSize: 25}}>0 post</b>
+                </center>
+                <br />
+                <br />
+              </div>
+            </Card>
+            <br />
           </div>
         ) : (
           <div>
@@ -219,41 +232,37 @@ class ComputerGadget extends React.Component {
                       disableActionSpacing
                     >
                       <IconButton aria-label="Thanks">
-                        {this.state.kode == 1 ? (
-                          <div>
-                            <small>
-                              <FavoriteIconBorder
-                                onClick={() =>
-                                  this.givethanks(data._id, data.username)
-                                }
-                              />
-                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
-                            </small>
-                          </div>
-                        ) : (
-                          <div>
-                            <center>
-                              <FavoriteIcon
-                                style={{color: 'red'}}
-                                onClick={() =>
-                                  this.givethanks(data._id, data.username)
-                                }
-                              />{" "}
-                              <b style={{ fontSize: "15px" }}>{data.thanks}</b>
-                            </center>
-                          </div>
-                        )}
+                        <div>
+                          <center>
+                            <FavoriteIcon
+                              style={{ color: "red" }}
+                              onClick={() =>
+                                this.givethanks(data._id, data.username)
+                              }
+                            />{" "}
+                            <b style={{ fontSize: "12px" }}>
+                              {data.thanks} Thanks
+                            </b>
+                          </center>
+                        </div>
                       </IconButton>
                     </CardActions>
-                    <ExpansionPanel expanded={expanded === data.id_posts} onChange={this.handleChange(data.id_posts)}>
-                    
-                      <ExpansionPanelSummary style={{background: "#f7f7f7"}} expandIcon={<ExpandMoreIcon />}>
+                    <ExpansionPanel
+                      expanded={expanded === data.id_posts}
+                      onChange={this.handleChange(data.id_posts)}
+                    >
+                      <ExpansionPanelSummary
+                        style={{ background: "#f7f7f7" }}
+                        expandIcon={<ExpandMoreIcon />}
+                      >
                         <Typography className={classes.heading}>
-                          <i style={{color:"blue"}}>{data.comment} Comments</i>
+                          <i style={{ color: "blue" }}>
+                            {data.comment} Comments
+                          </i>
                         </Typography>
                       </ExpansionPanelSummary>
-                      <ExpansionPanelDetails style={{background: "#f7f7f7"}}>
-                        <CardContent style={{marginTop: "-30PX"}}  >
+                      <ExpansionPanelDetails style={{ background: "#f7f7f7" }}>
+                        <CardContent style={{ marginTop: "-30PX" }}>
                           {isLoadingComment ? (
                             this.skeletonComment()
                           ) : commentByPostId.length === 0 ? (
@@ -261,7 +270,10 @@ class ComputerGadget extends React.Component {
                           ) : (
                             commentByPostId.map((a, index) => {
                               return (
-                                <List style={{marginTop: "-20PX"}} key={a._id}>
+                                <List
+                                  style={{ marginTop: "-20PX" }}
+                                  key={a._id}
+                                >
                                   <ListItem>
                                     <Avatar
                                       className={classes.avatar}
