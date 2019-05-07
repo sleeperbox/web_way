@@ -8,8 +8,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import axios from "axios";
-import Skeleton from 'react-loading-skeleton';
-
 
 export default class Trending extends Component {
   constructor(props) {
@@ -18,23 +16,30 @@ export default class Trending extends Component {
       expanded: "panel1",
       posts: [],
       users: [],
-      isLoading: true
     };
+  }
+
+  handleChange(value) {
+    this.setState({
+      expanded: value
+    });
   }
 
   componentWillMount() {
     axios
-      .post("http://apps.aprizal.com/api/posting/trending")
-      .then(result => this.setState({ posts: result.data, isLoading: false }));
+      .post("http://192.168.100.18:8080/api/posting/trending")
+      .then(result => this.setState({ posts: result.data }));
     axios
-      .post("http://apps.aprizal.com/api/user/trending")
+      .post("http://192.168.100.18:8080/api/user/trending")
       .then(result => this.setState({ users: result.data }));
   }
 
   render() {
+    const { open } = this.state;
     return (
       <div>
         <div>
+        {open ? this.imageClicked() : null}
         {this.trendingPost()}
         {this.trendingUser()}
         </div>
@@ -43,12 +48,12 @@ export default class Trending extends Component {
   }
 
   trendingPost() {
-    const { posts, isLoading } = this.state;
+    const { posts } = this.state;
     return (
       <div>
       <div style={{margin: -10}}>
-      
-          {isLoading ? (this.generateSkeleton()) : posts.length === 0 ? (
+     
+          {posts.length === 0 ? (
             <div>
               <p>No Trending Content For Today...</p>
             </div>
@@ -63,7 +68,7 @@ export default class Trending extends Component {
                     ) : (
                       <img
                         src={
-                          "http://aprizal.com/public/posting/foto/" +
+                          "http://192.168.100.18/src/web-api/public/posting/foto/" +
                           data.fotocontent
                         }
                       />
@@ -90,14 +95,14 @@ export default class Trending extends Component {
 
  
   trendingUser() {
-    const { users, isLoading } = this.state;
+    const { users } = this.state;
 
     return (
     <div style={{marginTop: 10}}>
         <div style={{padding: 15, margin: 2}}>
             <p style={{ fontSize: "1.2em"}}>Valuable User</p>
             <div style={{maxWidth: "100%"}}>
-                {isLoading ? (this.skeletonValuabeUser()) : users.length === null ? (
+                {users.length === null ? (
                     <div>
                     <p>No valuable users yet...</p>
                     </div>
@@ -106,15 +111,15 @@ export default class Trending extends Component {
                    <GridList cols={5} cellHeight={100} spacing={2}>
                     {users.map(user => (
                       
-                      <Card style={{margin: 20}} key={user._id}>
-                          <CardContent>
-                              <center>
-                                  <Avatar src={"http://aprizal.com/public/avatar/" + user.foto} height={20} width={20}/>
-                                  <br />
-                                  <small>{user.username}</small>
-                              </center>
-                          </CardContent>
-                      </Card>
+                    <Card style={{margin: 20}} key={user._id}>
+                        <CardContent>
+                            <center>
+                                <Avatar src={"http://192.168.100.18/src/web-api/public/avatar/" + user.foto} height={20} width={20}/>
+                                <br />
+                                <small>{"@" + user.username}</small>
+                            </center>
+                        </CardContent>
+                    </Card>
                     ))}
                     </GridList>
                     </div>
@@ -123,88 +128,5 @@ export default class Trending extends Component {
         </div>
     </div>
     );
-  }
-  generateSkeleton() {
-    const { posts } = this.state
-    return(
-        <GridList cellHeight={200} spacing={2 } style={{marginTop: "15px"}}>
-          <GridListTile cols={1} rows={1}>
-            <Skeleton height={200} width={310}/>
-          </GridListTile>
-          <GridListTile cols={1} rows={1}>
-            <Skeleton height={200} width={310}/>
-          </GridListTile>
-          <GridListTile cols={1} rows={1}>
-            <Skeleton height={200} width={310}/>
-          </GridListTile>
-          <GridListTile cols={1} rows={1}>
-            <Skeleton height={200} width={310}/>
-          </GridListTile>
-      </GridList>      
-    );
-  } 
-
-  skeletonValuabeUser(){
-    return (
-      <GridList cols={5} cellHeight={100} spacing={2}>
-                   
-                      
-                      <Card style={{margin: 20}}>
-                          <CardContent>
-                              <center>
-                                  <Avatar height={20} width={20}/>
-                                  <br />
-                                  <small></small>
-                              </center>
-                          </CardContent>
-                      </Card>
-                      <Card style={{margin: 20}}>
-                          <CardContent>
-                              <center>
-                                  <Avatar height={20} width={20}/>
-                                  <br />
-                                  <small></small>
-                              </center>
-                          </CardContent>
-                      </Card>
-                      <Card style={{margin: 20}}>
-                          <CardContent>
-                              <center>
-                                  <Avatar height={20} width={20}/>
-                                  <br />
-                                  <small></small>
-                              </center>
-                          </CardContent>
-                      </Card>
-                      <Card style={{margin: 20}}>
-                          <CardContent>
-                              <center>
-                                  <Avatar height={20} width={20}/>
-                                  <br />
-                                  <small></small>
-                              </center>
-                          </CardContent>
-                      </Card>
-                      <Card style={{margin: 20}}>
-                          <CardContent>
-                              <center>
-                                  <Avatar height={20} width={20}/>
-                                  <br />
-                                  <small></small>
-                              </center>
-                          </CardContent>
-                      </Card>
-                      <Card style={{margin: 20}}>
-                          <CardContent>
-                              <center>
-                                  <Avatar height={20} width={20}/>
-                                  <br />
-                                  <small></small>
-                              </center>
-                          </CardContent>
-                      </Card>
-                   
-                    </GridList>
-    )
   }
 }
