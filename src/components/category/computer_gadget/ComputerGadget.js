@@ -20,7 +20,8 @@ import Skeleton from "react-loading-skeleton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   card: {
@@ -57,7 +58,11 @@ class ComputerGadget extends React.Component {
       kode: 0,
       isLoading: true,
       isLoadingComment: true,
-      expanded: null
+      expanded: null,
+      open: false,
+      vertical: "bottom",
+      horizontal: "right",
+      process: 0
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -94,12 +99,15 @@ class ComputerGadget extends React.Component {
           Accept: "application/json"
         }
       }).then(result =>
-        this.setState({ posting: result.data, thanks: 0, isLoading: false })
+        this.setState({ posting: result.data, thanks: 0, process: 1 })
       );
     }
   }
 
   givethanks(value, value2) {
+    this.setState({
+      open: true
+    });
     axios({
       method: "put",
       url: "http://apps.aprizal.com/api/posting/thanks/post/user",
@@ -114,9 +122,13 @@ class ComputerGadget extends React.Component {
         username: value2
       }
     }).then(result =>
-      this.setState({ thanks: 1, kode: result.data.kode.kode })
+      this.setState({ thanks: 1, kode: result.data.kode.kode, process: 1 })
     );
   }
+
+  handleClose = () => {
+    this.setState({ open: false, process: 0 });
+  };
 
   handleChange = panel => (event, expanded) => {
     this.setState({
@@ -137,7 +149,7 @@ class ComputerGadget extends React.Component {
       this.setState({ commentByPostId: result.data, isLoadingComment: false })
     );
   };
-  
+
   render() {
     const { classes } = this.props;
     const {
@@ -145,7 +157,10 @@ class ComputerGadget extends React.Component {
       commentByPostId,
       isLoading,
       isLoadingComment,
-      expanded
+      expanded,
+      vertical,
+      horizontal,
+      process
     } = this.state;
 
     return (
@@ -157,10 +172,10 @@ class ComputerGadget extends React.Component {
             <Card className={classes.card}>
               <div>
                 <center>
-                <PostingIcon style={{fontSize: 150}}/>
+                  <PostingIcon style={{ fontSize: 150 }} />
                 </center>
                 <center>
-                  <b style={{fontSize: 25}}>0 post</b>
+                  <b style={{ fontSize: 25 }}>0 post</b>
                 </center>
                 <br />
                 <br />
@@ -231,21 +246,38 @@ class ComputerGadget extends React.Component {
                       className={classes.actions}
                       disableActionSpacing
                     >
-                      <IconButton aria-label="Thanks">
+                      
                         <div>
                           <center>
-                            <FavoriteIcon
-                              style={{ color: "red" }}
-                              onClick={() =>
-                                this.givethanks(data._id, data.username)
-                              }
-                            />{" "}
+                            <FavoriteIcon style={{ color: "red" }} onClick={() => this.givethanks(data._id, data.username)} 
+                            /><br />
                             <b style={{ fontSize: "12px" }}>
                               {data.thanks} Thanks
                             </b>
                           </center>
                         </div>
-                      </IconButton>
+                      <Snackbar
+                        anchorOrigin={{ vertical, horizontal }}
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        autoHideDuration={6000}
+                        ContentProps={{
+                          "aria-describedby": "message-id"
+                        }}
+                        message={
+                          <span id="message-id">
+                            {process === 0 ? (
+                              <div><CircularProgress size={15} color="secondary"/></div>
+                            ) : (
+                              <div>
+                                {this.state.kode === 1
+                                  ? "you have been thanks"
+                                  : "you have been unthanks"}
+                              </div>
+                            )}
+                          </span>
+                        }
+                      />
                     </CardActions>
                     <ExpansionPanel
                       expanded={expanded === data.id_posts}

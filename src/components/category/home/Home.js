@@ -64,7 +64,7 @@ class Home extends React.Component {
     const { classes } = this.props;
     return (
       <Card className={classes.card}>
-        <Skeleton height={600} avatar={<Avatar aria-label="Recipe" />} />
+        <Skeleton height={50} avatar={<Avatar aria-label="Recipe" />} />
       </Card>
     );
   }
