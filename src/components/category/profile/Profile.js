@@ -176,7 +176,7 @@ export default class Profile extends Component {
                     <Avatar style={{background: "#EF7F85"}}>
                         <JoindateIcon />
                     </Avatar>
-                     {/* <ListItemText primary="Join Date" secondary={join_date.slice(0, -4)} /> */}
+                     <ListItemText primary="Join Date" secondary={join_date.slice(0, -4)} />
                 </ListItem>
             </List>
         </Grid>
@@ -207,6 +207,7 @@ export default class Profile extends Component {
     }
 
     render(){
+        console.log(this.state.join_date)
           const myPost = (
             <div>
               <MyPost/>
