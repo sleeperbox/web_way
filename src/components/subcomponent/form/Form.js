@@ -8,7 +8,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import Icon from "@mdi/react";
 import { mdiGooglePlus } from "@mdi/js";
@@ -236,7 +236,7 @@ class Form extends React.Component {
               name="phone_number"
               placeholder="082316xxxxx"
               onChange={this.handleChange}
-              style={{backgroundColor:'transparent'}}
+              style={{background: 'transparent'}}
               onInput = {(e) =>{
                 e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,13)
             }}
@@ -252,7 +252,7 @@ class Form extends React.Component {
               margin="normal"
               name="email"
               onChange={this.handleChange}
-              style={{backgroundColor:'transparent'}}              
+              style={{background: 'transparent'}}                                        
             />
           )}
         </div>

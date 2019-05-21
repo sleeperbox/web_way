@@ -51,7 +51,8 @@ export default class Login extends React.Component {
       password: "",
       isLogin: false,
       warning: null,
-      phone_number: ""
+      phone_number: "",
+      username: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -82,13 +83,17 @@ export default class Login extends React.Component {
       this.setState({
         warning: result.data,
         isLogin: result.data.auth,
-        token: result.data.token
+        token: result.data.token,
+        username: result.data.username,
+        phone_number: result.data.phone_number,
+        email: result.data.email
       })
     );
   }
   componentDidUpdate() {
     const { isLogin } = this.state;
     if (isLogin === true) {
+      localStorage.setItem("username", JSON.stringify(this.state.username));
       localStorage.setItem("email", JSON.stringify(this.state.email));
       localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
       localStorage.setItem("auth", JSON.stringify(this.state.isLogin));

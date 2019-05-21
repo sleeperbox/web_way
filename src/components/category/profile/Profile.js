@@ -207,7 +207,6 @@ export default class Profile extends Component {
     }
 
     render(){
-        console.log(this.state.join_date)
           const myPost = (
             <div>
               <MyPost/>

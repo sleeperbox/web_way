@@ -39,9 +39,13 @@ const styles = theme => ({
 });
 
 class Container extends React.Component {
-  state = {
-    value: 1
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 1,
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
   handleChange = (event, value) => {
     this.setState({ value });
