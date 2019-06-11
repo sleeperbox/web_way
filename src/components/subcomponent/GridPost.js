@@ -18,6 +18,7 @@ import Skeleton from 'react-loading-skeleton';
 import axios from "axios";
 
 export default class GridPost extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -50,12 +51,29 @@ export default class GridPost extends Component {
 
 
   componentWillMount() {
+    this._isMounted = true;
     axios
       .post("http://apps.aprizal.com/api/posting/trending")
-      .then(result => this.setState({ posts: result.data, isLoading: false }));
+      .then(result => 
+        {
+          if(this._isMounted){
+            this.setState({ posts: result.data, isLoading: false })
+            
+          }               
+        }
+      );
     axios
       .post("http://apps.aprizal.com/api/user/trending")
-      .then(result => this.setState({ users: result.data, isLoading: false }));
+      .then(result => {
+          if(this._isMounted){
+            this.setState({ users: result.data, isLoading: false })
+          }
+        }
+      );
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   categoryClicked(value){

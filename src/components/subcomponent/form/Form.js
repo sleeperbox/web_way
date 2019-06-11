@@ -73,6 +73,7 @@ MySnackbarContent.propTypes = {
 };
 
 class Form extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -108,9 +109,10 @@ class Form extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const { isLogin } = this.state;
     if (isLogin === true) {
+      localStorage.setItem("username", JSON.stringify(this.state.username));
       localStorage.setItem("email", JSON.stringify(this.state.email));
       localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
       localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
@@ -197,7 +199,7 @@ class Form extends React.Component {
             style={{ background: "#ffa000" }}
             variant="error"
             className={classes.margin}
-            message="Username/Email Has Been Used !"
+            message="Account Has Been Used !"
           />
         ) : null}
         <br />
@@ -238,7 +240,7 @@ class Form extends React.Component {
               onChange={this.handleChange}
               style={{background: 'transparent'}}
               onInput = {(e) =>{
-                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,13)
+                e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,13)
             }}
             />
           )}

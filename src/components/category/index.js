@@ -13,20 +13,38 @@ const styles = theme => ({
   
 });
 
-function PaperSheet(props) {
-  const { classes } = props;
-  return (
-    <Grid container spacing={16}>
+class index extends React.Component{
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: localStorage.getItem("email"),
+      isLogin: localStorage.getItem('auth'),      
+    };
+  }
+
+  componentWillMount() {
+    if(this.state.isLogin === null){
+      window.location = "#/login";
+      location.reload();
+    }   
+  }
+  
+  render(){
+    const { classes } = this.props;
+    return (
+      <Grid container spacing={16}>
       <div className={classes.root} style={{paddingLeft:0, paddingRight:0,
     paddingBottom:0}}>      
         <Container style={{height:'100%'}}/>
       </div>
     </Grid>
-  );
+    )
+  }
 }
 
-PaperSheet.propTypes = {
+index.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PaperSheet);
+export default withStyles(styles)(index);

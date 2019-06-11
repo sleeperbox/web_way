@@ -100,13 +100,7 @@ export default class Login extends React.Component {
       window.location = "#/profile";
     }
   }
-  // shouldComponentUpdate(newProps, newState){
-  //   if(newState.isLogin || newState.warning || newState.kode){
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  
   googleSignin() {
     window.location = "http://apps.aprizal.com/api/auth/google";
   }
