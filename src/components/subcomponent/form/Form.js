@@ -112,11 +112,18 @@ class Form extends React.Component {
   componentDidUpdate() {
     const { isLogin } = this.state;
     if (isLogin === true) {
-      localStorage.setItem("username", JSON.stringify(this.state.username));
-      localStorage.setItem("email", JSON.stringify(this.state.email));
-      localStorage.setItem("phone", JSON.stringify(this.state.phone_number));
-      localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
-      window.location = "#/profile";
+      if(this.state.value === 0){
+        localStorage.setItem("username", JSON.stringify(this.state.username));
+        localStorage.setItem("email", JSON.stringify(this.state.phone_number));
+        localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
+        window.location = "#/profile";   
+      } else {
+        localStorage.setItem("username", JSON.stringify(this.state.username));
+        localStorage.setItem("email", JSON.stringify(this.state.email));
+        localStorage.setItem("auth", JSON.stringify(this.state.isLogin));
+        window.location = "#/profile";
+      }
+     
     }
   }
 
@@ -230,18 +237,16 @@ class Form extends React.Component {
           {value === 0 && (
             <TextValidator
               label="Phone"
+              ref="phone"
               className={classes.textField}
-              type="number"
               margin="normal"
               fullWidth={true}
               required={true}
               name="phone_number"
-              placeholder="082316xxxxx"
+              placeholder="08xxxxxxxxx"
               onChange={this.handleChange}
               style={{background: 'transparent'}}
-              onInput = {(e) =>{
-                e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,13)
-            }}
+              inputProps= {{maxLength: 13}}
             />
           )}
           {value === 1 && (
@@ -254,7 +259,8 @@ class Form extends React.Component {
               margin="normal"
               name="email"
               onChange={this.handleChange}
-              style={{background: 'transparent'}}                                        
+              style={{background: 'transparent'}}
+                                                 
             />
           )}
         </div>

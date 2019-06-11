@@ -55,7 +55,7 @@ export default class Profile extends Component {
   }
 
   componentWillMount() {
-        
+      
       axios({
         method: "post",
         url: "http://apps.aprizal.com/api/profile",
