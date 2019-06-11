@@ -9,6 +9,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import InputMask from "react-input-mask";
+import NumberFormat from 'react-number-format';
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import Icon from "@mdi/react";
 import { mdiGooglePlus } from "@mdi/js";
@@ -70,6 +71,29 @@ MySnackbarContent.propTypes = {
   message: PropTypes.node,
   onClose: PropTypes.func,
   variant: PropTypes.oneOf(["error"]).isRequired
+};
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        });
+      }}
+      
+      
+    />
+  );
+}
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 class Form extends React.Component {
@@ -237,7 +261,6 @@ class Form extends React.Component {
           {value === 0 && (
             <TextValidator
               label="Phone"
-              ref="phone"
               className={classes.textField}
               margin="normal"
               fullWidth={true}
@@ -247,6 +270,9 @@ class Form extends React.Component {
               onChange={this.handleChange}
               style={{background: 'transparent'}}
               inputProps= {{maxLength: 13}}
+              InputProps={{
+                inputComponent: NumberFormatCustom,
+              }}
             />
           )}
           {value === 1 && (
