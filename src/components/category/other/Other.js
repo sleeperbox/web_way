@@ -21,7 +21,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Snackbar from "@material-ui/core/Snackbar";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = theme => ({
   card: {
@@ -37,8 +37,8 @@ const styles = theme => ({
     opacity: "100%"
   },
   progress: {
-    padding : 5
-  },
+    padding: 5
+  }
 });
 
 class Other extends React.Component {
@@ -102,7 +102,7 @@ class Other extends React.Component {
           Accept: "application/json"
         }
       }).then(result =>
-        this.setState({ posting: result.data, thanks: 0, process :1 })
+        this.setState({ posting: result.data, thanks: 0, process: 1 })
       );
     }
   }
@@ -213,17 +213,7 @@ class Other extends React.Component {
                           : data.date.slice(4)
                       }
                     />
-                    {data.fotocontent != null ? (
-                      <div>
-                        <CardMedia
-                          className={classes.media}
-                          image={
-                            "http://aprizal.com/public/posting/foto/" +
-                            data.fotocontent
-                          }
-                        />
-                      </div>
-                    ) : (
+                    {data.fotocontent === null ? (
                       <div>
                         <CardMedia
                           className={classes.media}
@@ -231,6 +221,20 @@ class Other extends React.Component {
                             "http://aprizal.com/public/icon/icon/other.png"
                           }
                         />
+                      </div>
+                    ) : (
+                      <div>
+                        <center>
+                          <CardMedia>
+                            <img
+                              src={
+                                "http://aprizal.com/public/posting/foto/" +
+                                data.fotocontent
+                              }
+                              style={{ height: "auto", maxWidth: "100%" }}
+                            />
+                          </CardMedia>
+                        </center>
                       </div>
                     )}
                     <CardContent>
@@ -252,17 +256,21 @@ class Other extends React.Component {
                       className={classes.actions}
                       disableActionSpacing
                     >
-                      
-                        <div>
-                          <center>
-                            <FavoriteIcon style={{ color: "red" }} onClick={() => this.givethanks(data._id, data.username)}/>
-                            <br />
-                            <b style={{ fontSize: "12px", marginTop: -10000 }}>
-                              {data.thanks} Thanks
-                            </b>
-                          </center>
-                        </div>
-                     
+                      <div>
+                        <center>
+                          <FavoriteIcon
+                            style={{ color: "red" }}
+                            onClick={() =>
+                              this.givethanks(data._id, data.username)
+                            }
+                          />
+                          <br />
+                          <b style={{ fontSize: "12px", marginTop: -10000 }}>
+                            {data.thanks} Thanks
+                          </b>
+                        </center>
+                      </div>
+
                       <Snackbar
                         anchorOrigin={{ vertical, horizontal }}
                         open={this.state.open}
@@ -274,7 +282,9 @@ class Other extends React.Component {
                         message={
                           <span id="message-id">
                             {process === 0 ? (
-                              <div><CircularProgress size={15} color="secondary"/></div>
+                              <div>
+                                <CircularProgress size={15} color="secondary" />
+                              </div>
                             ) : (
                               <div>
                                 {this.state.kode === 1

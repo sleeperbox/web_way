@@ -21,7 +21,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Snackbar from "@material-ui/core/Snackbar";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = theme => ({
   card: {
@@ -99,7 +99,12 @@ class Fashion extends React.Component {
           Accept: "application/json"
         }
       }).then(result =>
-        this.setState({ posting: result.data, thanks: 0, isLoading: false, process: 1 })
+        this.setState({
+          posting: result.data,
+          thanks: 0,
+          isLoading: false,
+          process: 1
+        })
       );
     }
   }
@@ -132,22 +137,22 @@ class Fashion extends React.Component {
 
   handleChange = panel => (event, expanded) => {
     this.setState({
-      expanded: expanded ? panel : false,
+      expanded: expanded ? panel : false
     });
     axios({
-          method: "POST",
-          url: "http://apps.aprizal.com/api/comments",
-          headers: {
-            "Acces-Control-Allow-Origin": true,
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          data: {
-            id_posts: panel
-          }
-        }).then(result =>
-          this.setState({ commentByPostId: result.data, isLoadingComment: false })
-        );
+      method: "POST",
+      url: "http://apps.aprizal.com/api/comments",
+      headers: {
+        "Acces-Control-Allow-Origin": true,
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      data: {
+        id_posts: panel
+      }
+    }).then(result =>
+      this.setState({ commentByPostId: result.data, isLoadingComment: false })
+    );
   };
 
   render() {
@@ -172,10 +177,10 @@ class Fashion extends React.Component {
             <Card className={classes.card}>
               <div>
                 <center>
-                <PostingIcon style={{fontSize: 150}}/>
+                  <PostingIcon style={{ fontSize: 150 }} />
                 </center>
                 <center>
-                  <b style={{fontSize: 25}}>0 post</b>
+                  <b style={{ fontSize: 25 }}>0 post</b>
                 </center>
                 <br />
                 <br />
@@ -213,18 +218,24 @@ class Fashion extends React.Component {
                       <div>
                         <CardMedia
                           className={classes.media}
-                          image={"http://aprizal.com/public/icon/icon/fashion.png"}
+                          image={
+                            "http://aprizal.com/public/icon/icon/fashion.png"
+                          }
                         />
                       </div>
                     ) : (
                       <div>
-                        <CardMedia
-                          className={classes.media}
-                          image={
-                            "http://aprizal.com/public/posting/foto/" +
-                            data.fotocontent
-                          }
-                        />
+                        <center>
+                          <CardMedia>
+                            <img
+                              src={
+                                "http://aprizal.com/public/posting/foto/" +
+                                data.fotocontent
+                              }
+                              style={{ height: "auto", maxWidth: "100%" }}
+                            />
+                          </CardMedia>
+                        </center>
                       </div>
                     )}
                     <CardContent>
@@ -246,16 +257,21 @@ class Fashion extends React.Component {
                       className={classes.actions}
                       disableActionSpacing
                     >
-                      
-                        <div>
-                          <center>
-                            <FavoriteIcon style={{ color: "red" }} onClick={() => this.givethanks(data._id, data.username)}/><br />
-                            <b style={{ fontSize: "12px" }}>
-                              {data.thanks} Thanks
-                            </b>
-                          </center>
-                        </div>
-                      
+                      <div>
+                        <center>
+                          <FavoriteIcon
+                            style={{ color: "red" }}
+                            onClick={() =>
+                              this.givethanks(data._id, data.username)
+                            }
+                          />
+                          <br />
+                          <b style={{ fontSize: "12px" }}>
+                            {data.thanks} Thanks
+                          </b>
+                        </center>
+                      </div>
+
                       <Snackbar
                         anchorOrigin={{ vertical, horizontal }}
                         open={this.state.open}
@@ -267,7 +283,9 @@ class Fashion extends React.Component {
                         message={
                           <span id="message-id">
                             {process === 0 ? (
-                              <div><CircularProgress size={15} color="secondary"/></div>                                                           
+                              <div>
+                                <CircularProgress size={15} color="secondary" />
+                              </div>
                             ) : (
                               <div>
                                 {this.state.kode === 1
@@ -279,15 +297,22 @@ class Fashion extends React.Component {
                         }
                       />
                     </CardActions>
-                    <ExpansionPanel expanded={expanded === data.id_posts} onChange={this.handleChange(data.id_posts)}>
-                    
-                      <ExpansionPanelSummary style={{background: "#f7f7f7"}} expandIcon={<ExpandMoreIcon />}>
+                    <ExpansionPanel
+                      expanded={expanded === data.id_posts}
+                      onChange={this.handleChange(data.id_posts)}
+                    >
+                      <ExpansionPanelSummary
+                        style={{ background: "#f7f7f7" }}
+                        expandIcon={<ExpandMoreIcon />}
+                      >
                         <Typography className={classes.heading}>
-                          <i style={{color:"blue"}}>{data.comment} Comments</i>
+                          <i style={{ color: "blue" }}>
+                            {data.comment} Comments
+                          </i>
                         </Typography>
                       </ExpansionPanelSummary>
-                      <ExpansionPanelDetails style={{background: "#f7f7f7"}}>
-                        <CardContent style={{marginTop: "-30PX"}}  >
+                      <ExpansionPanelDetails style={{ background: "#f7f7f7" }}>
+                        <CardContent style={{ marginTop: "-30PX" }}>
                           {isLoadingComment ? (
                             this.skeletonComment()
                           ) : commentByPostId.length === 0 ? (
@@ -295,7 +320,10 @@ class Fashion extends React.Component {
                           ) : (
                             commentByPostId.map((a, index) => {
                               return (
-                                <List style={{marginTop: "-20PX"}} key={a._id}>
+                                <List
+                                  style={{ marginTop: "-20PX" }}
+                                  key={a._id}
+                                >
                                   <ListItem>
                                     <Avatar
                                       className={classes.avatar}

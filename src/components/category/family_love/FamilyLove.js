@@ -21,7 +21,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Snackbar from "@material-ui/core/Snackbar";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = theme => ({
   card: {
@@ -220,13 +220,17 @@ class FamilyLove extends React.Component {
                       </div>
                     ) : (
                       <div>
-                        <CardMedia
-                          className={classes.media}
-                          image={
-                            "http://aprizal.com/public/posting/foto/" +
-                            data.fotocontent
-                          }
-                        />
+                        <center>
+                          <CardMedia>
+                            <img
+                              src={
+                                "http://aprizal.com/public/posting/foto/" +
+                                data.fotocontent
+                              }
+                              style={{ height: "auto", maxWidth: "100%" }}
+                            />
+                          </CardMedia>
+                        </center>
                       </div>
                     )}
                     <CardContent>
@@ -248,17 +252,21 @@ class FamilyLove extends React.Component {
                       className={classes.actions}
                       disableActionSpacing
                     >
-                    
-                        <div>
-                          <center>
-                            <FavoriteIcon style={{ color: "red" }} onClick={() => this.givethanks(data._id, data.username)}/>
-                            <br />
-                            <b style={{ fontSize: "12px" }}>
-                              {data.thanks} Thanks
-                            </b>
-                          </center>
-                        </div>
-                     
+                      <div>
+                        <center>
+                          <FavoriteIcon
+                            style={{ color: "red" }}
+                            onClick={() =>
+                              this.givethanks(data._id, data.username)
+                            }
+                          />
+                          <br />
+                          <b style={{ fontSize: "12px" }}>
+                            {data.thanks} Thanks
+                          </b>
+                        </center>
+                      </div>
+
                       <Snackbar
                         anchorOrigin={{ vertical, horizontal }}
                         open={this.state.open}
@@ -270,7 +278,9 @@ class FamilyLove extends React.Component {
                         message={
                           <span id="message-id">
                             {process === 0 ? (
-                              <div><CircularProgress size={15} color="secondary"/></div>                                                           
+                              <div>
+                                <CircularProgress size={15} color="secondary" />
+                              </div>
                             ) : (
                               <div>
                                 {this.state.kode === 1
